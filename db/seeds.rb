@@ -28,51 +28,51 @@ end
     )
 end
 
-# # create 10 random categories
-# 10.times do
-#   Category.create!(
-#     name: Faker::Commerce.department,
-#     )
-# end
-#
-# # create 50 random orders
-# 50.times do
-#   Order.create!(
-#     # status: determine what is the status
-#     )
-# end
-#
-# # create 50 random reviews
-# 50.times do
-#   Review.create!(
-#     rating: Faker::Number.between(1, 5),
-#     comment: Faker::Lorem.sentence,
-#     )
-# end
-#
-# #JOIN TABLES
-#
-# # create 50 random product_categories
-# 50.times do
-#   ProductCategory.create!(
-#     category_id: Faker::Number.between(1, 10),
-#     product_id: Faker::Number.between(1, 50),
-#     )
-# end
-#
-# # create 50 random product_orders
-# 50.times do
-#   ProductOrder.create!(
-#     product_id: Faker::Number.between(1, 50),
-#     order_id: Faker::Number.between(1, 50),
-#     # status: determine what is the status
-#     )
-# end
-#
-# # create 50 random user_orders
-# 50.times do
-#   UserOrder.create!(
-#     user_id: Faker::Number.between(1, 50),
-#     order_id: Faker::Number.between(1, 50),
-#     )
-# end
+# create 10 random categories
+10.times do
+  Category.create!(
+    name: Faker::Commerce.department,
+    )
+end
+
+# create 50 random orders
+50.times do
+  Order.create!(
+    # status: determine what is the status
+    )
+end
+
+# create 50 random reviews
+50.times do
+  Review.create!(
+    rating: Faker::Number.between(1, 5),
+    comment: Faker::Lorem.sentence,
+    )
+end
+
+#JOIN TABLES
+
+# create 50 random product_categories
+50.times do
+  ProductCategory.create!(
+    category_id: Faker::Number.between(1, 10),
+    product_id: Faker::Number.between(1, 50),
+    )
+end
+
+# create 50 random product_orders
+50.times do
+  ProductOrder.create!(
+    product_id: Faker::Number.between(1, 50),
+    order_id: Faker::Number.between(1, 50),
+    # status: determine what is the status
+    )
+end
+
+# create 50 random user_orders
+50.times do
+  UserOrder.create!(
+    user_id: Faker::Number.between(1, 50),
+    order_id: Faker::Number.between(1, 50),
+    )
+end
