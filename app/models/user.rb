@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  validates :id, presence: true
   validates :username, presence: true
   validates :email, presence: true
 
@@ -8,5 +7,8 @@ class User < ApplicationRecord
   has_many :orders, through: :user_orders
   has_many :reviews, through: :products
   has_many :product_orders, through: :products
-  has_many :product_categories, through: :products
+
+  has_many :categories, through: :product_categories
+  has_many :reviews, through: :products
+  has_many :product_orders, through: :products
 end
