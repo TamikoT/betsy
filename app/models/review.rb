@@ -1,7 +1,5 @@
 class Review < ApplicationRecord
-  validates :id, presence: true
-  validates :rating, presence: true
-  # NOTE: Did not add validations for comment.
+  validates :rating, presence: true, numericality: { :greater_than_or_equal_to => 1, :less_than_or_equal_to => 5}
 
   belongs_to :product
 end

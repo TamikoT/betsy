@@ -1,6 +1,6 @@
 class Category < ApplicationRecord
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 
-  belongs_to :product_category
-  has_many :products, through: :product_category
+  has_many: products, through: product_category
+  has_many: product_categories
 end
