@@ -1,14 +1,16 @@
 class Product < ApplicationRecord
-  validates :status, presence: true
-  validates :stock, presence: true
+  validates :status, presence: true, inclusion: { in: [true, false]}
+  validates :stock, presence: true, numericality: { only_integer: true, allow_nil: true}
   validates :name, presence: true
-  validates :price, presence: true
-  validates :user_id, presence: true
-  # NOTE: Did not add validations for photo.
+  validates :price, presence: true, numericality: { :greater_than => 0 }
 
-  belongs_to :product_categories #What is the foreign id for this?
-  belongs_to :users
+
+  belongs_to :user
+  has_many :reviews
 
   has_many :product_orders
-  has_many :reviews
+  has_many :orders, through: product_order
+
+  has_many :categories, through: product_category
+  has_many :product_categories
 end
