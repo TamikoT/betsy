@@ -19,6 +19,24 @@ describe UsersController do
     end
   end
 
+  describe new do; end
+
+  describe create do
+    it "adds user to database" do
+      user_data = { user: { name: "Test Name", email: "test@aol.com" } }
+      post users_path, params: user_data
+      # T_T not necessarily where we will redirect to
+      must_redirect_to users_path
+    end
+
+    it "refreshed the form if the info sucks"
+      # test if no username is given
+      user_data = { email: { email: "noname@aol.com" } }
+      post users_path, params: user_data
+      must_respond_with :bad_request
+    end
+  end
+
   describe "show" do
     it "responds with an existing user" do
     skip
@@ -28,8 +46,8 @@ describe UsersController do
 
     it "404 with invalid user data" do
     skip
-      bogus_user_id = User.last.id + 1
-      get user_path(bogus_user_id)
+      bad_user_id = User.last.id + 1
+      get user_path(bad_user_id)
       must_respond_with :not_found
     end
   end
