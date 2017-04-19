@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  validates :status, presence: true, inclusion: { in: ("pending", "paid", "complete", "cancelled")}
+  validates :status, presence: true, inclusion: { in: %w(pending paid complete cancelled)}
 
   has_many :products, through: :product_order
   has_many :product_orders
