@@ -1,28 +1,47 @@
 class SessionsController < ApplicationController
     def new; end
 
+    def login
+        user = User.find_by(username: params[:username])
+        if user
+            session[:user_id] = user.id
+            flash[:result_text] = "Welcome back,  #{user.username}"
+        else
+            flash[:result_text] = 'Could not log in'
+            flash[:messages] = user.errors.messages
+            render 'new', status: :bad_request
+        end
+        redirect_to root_path
+    end
+
     def create
         auth_hash = request.env['omniauth.auth']
 
-        user = if auth_hash['uid']
-                   User.find_by(oauth_provider: params[:provider], oauth_uid: auth_hash['uid'])
-               else
-                   User.find_by(name: params[:name])
-               end
+        user = User.find_by(oauth_uid: auth_hash[:uid], oauth_provider: params[:provider])
 
-        if user
-            session[:user_id] = user.id
-            flash[:success] = "#{user.name} has loged in"
-            redirect_to root_path
+        if user.nil?
+            user = User.from_github(auth_hash)
+            if user.save
+                session[:user_id] = user.id
+                flash[:message] = "Successfully logged in as new user #{user.username}"
+            else
+                flash[:message] = 'Could not log in'
+                user.errors.messages.each do |_field, problem|
+                    flash[:field] = problem.join(', ')
+                end
+            end
+
         else
-            flash[:failure] = 'Login Failed'
-            redirect_to login_path
+            session[:user_id] = user.id
+            flash[:message] = "Welcome back, #{user.username}"
         end
+
+        redirect_to root_path
     end
 
-    def destroy
+    def logout
         session[:user_id] = nil
-        flash[:logout] = "You're loged out"
+        flash[:result_text] = 'Successfully logged out'
         redirect_to root_path
     end
 end

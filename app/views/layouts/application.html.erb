@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Betsy</title>
+    <title>Mother Fuffer</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -17,11 +17,11 @@
 
     <section>
   <% if @current_user %>
-    Fluffed in as <%= link_to "#{@current_user.name}", user_path(session[:user_id])%>
-    <%= link_to "Logout", logout_path, method: :delete,:class => "gg-button"%>
+    Fluffed in as <%= link_to "#{@current_user.username}", user_path(session[:user_id])%>
+    <%= link_to "Logout", logout_path, method: :logout%>
     <%else%>
     Not Fluffed in
-    <%= link_to "Login", login_path,:class => "gg-button"%>
+    <%= link_to "Login", login_path%>
     <%end%>
   </section>
 </nav>

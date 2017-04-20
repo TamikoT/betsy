@@ -7,8 +7,9 @@ Rails.application.routes.draw do
     resources :reviews, except: [:edit, :update, :destroy]
     resources :orders, except: [:edit, :update, :destroy]
 
-    get 'login', to: 'sessions#new'
-    post 'login', to: 'sessions#create'
     get '/auth/:provider/callback', to: 'sessions#create'
-    delete 'logout', to: 'sessions#destroy'
+
+    get 'login', to: 'sessions#new', as: 'login'
+    post 'login', to: 'sessions#login'
+    post 'logout', to: 'sessions#logout', as: 'logout'
 end
