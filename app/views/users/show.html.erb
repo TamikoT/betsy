@@ -1,0 +1,27 @@
+<h3>User Summary: <%= link_to @user.username, user_path(@user) %></h3>
+
+
+<h4>Products</h4>
+<table>
+  <thead>
+    <tr>
+      <th><!--PHOTO  --></th>
+      <th>Name</th>
+      <th>Categories</th>
+      <th>price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @user.each do |user| %>
+      <tr>
+        <td><%= user.product.photo %></td>
+        <td><%= link_to user.product.name, user_path(product.name) %></td>
+        <td><%#= user.product.creator %></td> <!--NEEDS LOGIC  -->
+        <td><%= user.product.price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "See all Sellers", users_path, class: "button" %>
+<%= link_to "Home Page", root_path, class: "button" %>
