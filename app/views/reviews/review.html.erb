@@ -1,0 +1,31 @@
+<% @product.name %>
+
+<h1> Product </h1>
+
+  <ul id = 'view'>
+    <li><strong>Title:</strong> <%= @picture.title %></li>
+    <li><strong>Category:</strong> <%= @picture.category %></li>
+    <li><strong>Rating:</strong> <%= pluralize(@picture.rating, 'Star') %></li>
+    <li><strong>Favorited:</strong> By <%= pluralize(@picture.users.count, 'User') %></li></br>
+  </ul>
+
+  <% if @picture.rating > 4 %>
+
+  <button class = 'top-picture'>Top Rated</button>
+
+  <% end %>
+
+<%= form_for @review do |f| %>
+
+  <p>
+    <%= f.label :stars, 'Rating' %>
+    <div>
+      <%= f.radio_button :stars, '1' %>
+      <%= f.radio_button :stars, '2' %>
+      <%= f.radio_button :stars, '3' %>
+      <%= f.radio_button :stars, '4' %>
+    <%= f.radio_button :stars, '5' %>
+    </div>
+  </p>
+
+<% end %>
