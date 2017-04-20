@@ -58,6 +58,7 @@ group :development do
     gem 'binding_of_caller'
     gem 'pry-rails'
     gem 'rails-erd'
+    gem 'dotenv-rails'
 end
 
 group :test do
