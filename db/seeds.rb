@@ -31,7 +31,7 @@ end
 # create 10 random categories
 10.times do
   Category.create!(
-    name: Faker::Commerce.department,
+    name: Faker::Commerce.unique.department,
     )
 end
 
@@ -50,29 +50,29 @@ end
     product_id: Faker::Number.between(1, 50),
     )
 end
-#
-# #JOIN TABLES
-#
-# # create 50 random product_categories
-# 50.times do
-#   ProductCategory.create!(
-#     category_id: Faker::Number.between(1, 10),
-#     product_id: Faker::Number.between(1, 50),
-#     )
-# end
+
+#JOIN TABLES
+
+# create 50 random product_categories
+50.times do
+  ProductCategory.create!(
+    category_id: Faker::Number.between(1, 10),
+    product_id: Faker::Number.between(1, 50),
+    )
+end
 #
 # # create 50 random product_orders
-# 50.times do
-#   ProductOrder.create!(
-#     product_id: Faker::Number.between(1, 50),
-#     order_id: Faker::Number.between(1, 50),
-#     )
-# end
+50.times do
+  ProductOrder.create!(
+    product_id: Faker::Number.between(1, 50),
+    order_id: Faker::Number.between(1, 50),
+    )
+end
 #
 # # create 50 random user_orders
-# 50.times do
-#   UserOrder.create!(
-#     user_id: Faker::Number.between(1, 20),
-#     order_id: Faker::Number.between(1, 50),
-#     )
-# end
+50.times do
+  UserOrder.create!(
+    user_id: Faker::Number.between(1, 20),
+    order_id: Faker::Number.between(1, 50),
+    )
+end
