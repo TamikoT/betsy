@@ -15,7 +15,7 @@
   <tbody>
     <% @user.products.each do |product| %>
     <tr>
-      <td> <%= "Photo" %> </td>
+      <td> <%= image_tag product.photo %> </td>
       <td><%= product.name %></td>
       <td><%= "Categories" %></td>
       <td><%= "#{'%.2f' % product.price}" %></td>
