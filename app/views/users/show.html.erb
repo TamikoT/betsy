@@ -2,23 +2,24 @@
 
 
 <h4>Products</h4>
+
 <table>
   <thead>
     <tr>
-      <th><!--PHOTO  --></th>
+      <th>Photo</th>
       <th>Name</th>
       <th>Categories</th>
-      <th>price</th>
+      <th>Price</th>
     </tr>
   </thead>
   <tbody>
-    <% @user.each do |user| %>
-      <tr>
-        <td><%= user.product.photo %></td>
-        <td><%= link_to user.product.name, user_path(product.name) %></td>
-        <td><%#= user.product.creator %></td> <!--NEEDS LOGIC  -->
-        <td><%= user.product.price %></td>
-      </tr>
+    <% @user.products.each do |product| %>
+    <tr>
+      <td> <%= "Photo" %> </td>
+      <td><%= product.name %></td>
+      <td><%= "Categories" %></td>
+      <td><%= "#{'%.2f' % product.price}" %></td>
+    </tr>
     <% end %>
   </tbody>
 </table>
