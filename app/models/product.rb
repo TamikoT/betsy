@@ -9,8 +9,8 @@ class Product < ApplicationRecord
   has_many :reviews
 
   has_many :product_orders
-  has_many :orders, through: :product_order
+  has_many :orders, through: :product_orders
 
-  has_many :categories, through: :product_category
   has_many :product_categories
+  has_many :categories, through: :product_categories
 end
