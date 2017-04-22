@@ -16,7 +16,7 @@
     <% @user.products.each do |product| %>
     <tr>
       <td> <%= image_tag product.photo %> </td>
-      <td><%= product.name %></td>
+      <td><%= link_to product.name, product_path %></td>
       <td>
         <% product.categories.each do |category| %>
         <%= link_to category.name, category_path %><br>
