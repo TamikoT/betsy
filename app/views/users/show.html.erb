@@ -15,12 +15,18 @@
   <tbody>
     <% @user.products.each do |product| %>
     <tr>
-      <td> <%= "Photo" %> </td>
-      <td><%= product.name %></td>
-      <td><%= "Categories" %></td>
+      <td> <%= image_tag product.photo %> </td>
+      <td><%= link_to product.name, product_path %></td>
+      <td>
+        <% product.categories.each do |category| %>
+        <%= link_to category.name, category_path %><br>
+        <% end %>
+      </td>
       <td><%= "#{'%.2f' % product.price}" %></td>
     </tr>
     <% end %>
+
+    <h1></h1>
   </tbody>
 </table>
 
