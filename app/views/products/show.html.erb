@@ -8,13 +8,13 @@
 
 <section>
   <ul>
-    <Price: <%= @product.price %></li>
+    <li>Price: <%= @product.price %></li>
     <li>Sold by: <%= @product.user.username %></li>
     <li>Status: <%= @product.status %></li>
     <!-- T_T under the assumption that a category belongs to a product -->
     <li>
-      Category: <%= @product.categories.each do |category|%>
-        <%= link_to category.name, category_path(category.product) %>
+      Category: <% @product.categories.each do |category|%>
+        <%= link_to category.name, category_products_path(category.id) %>
       <% end %>
     </li>
   </ul>
