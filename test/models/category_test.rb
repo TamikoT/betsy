@@ -11,9 +11,8 @@ describe Category do
 
   describe "validation tests" do
     it "new category can not be created a without unique name" do
-      category_copy = category.dup
-      proc { category_copy.save! }.must_raise("Category name must be unique.")
-      category_copy.errors.must_include(:name)
+      proc { category.save! }.must_raise("Category name must be unique.")
+      category.errors.must_include(:name)
     end
 
     it "new category can be created with a unique name" do
