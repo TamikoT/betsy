@@ -20,7 +20,7 @@ describe Category do
       category[:name] = "unique"
       category.save
 
-      category.wont_be_nil
+      category.must_be :valid?
     end
   end
 
