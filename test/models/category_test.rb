@@ -1,5 +1,7 @@
 require "test_helper"
 
+#TODO: Need to update to so the tests utlize fixtures.
+
 describe Category do
   let(:category) { Category.new }
 
@@ -13,6 +15,13 @@ describe Category do
     category_copy = category.dup
     proc { category_copy.save! }.must_raise("Category name must be unique.")
     category_copy.errors.must_include(:name)
+  end
+
+  it "will create a new category with a unique name" do
+    category[:name] = "unique"
+    category.save
+
+    category.wont_be_nil
   end
 end
 
