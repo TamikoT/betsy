@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
     resources :users, except: [:edit, :update, :destroy]
     resources :products, except: [:destroy]
-    resources :category, only: [:new, :create]
+    resources :category, only: [:new, :create] do
+        get '/products', to: 'products#index'
+    end
     resources :reviews, except: [:edit, :update, :destroy]
     resources :orders, except: [:edit, :update, :destroy]
 
