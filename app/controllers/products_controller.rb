@@ -31,6 +31,20 @@ class ProductsController < ApplicationController
         product.update(product_params)
     end
 
+    def add_category
+        raise
+        new_category = ProductCategory.new(product_id: params[:id], category_id: params[:category])
+        if new_category.save
+            flash[:status] = :success
+            flash[:result_text] = "Successfluffy categorized #{product.name} as #{category.name}"
+        else
+            flash[:status] = :failure
+            flash[:result_text] = 'Unable to add category'
+            flash[:messages] = new_category.errors.messages
+        end
+        redirect_to user_path(@current_user)
+    end
+
     private
 
     def product_params
