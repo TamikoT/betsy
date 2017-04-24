@@ -11,11 +11,11 @@ class ApplicationController < ActionController::Base
     end
 
     def initialize_cart
-      if session[:cart_id]
-        @cart = Cart.find(session[:cart_id])
+      if session[:order_id]
+        @cart = Order.find(session[:order_id])
       else
-        @cart = Cart.create
-        session[:cart_id] = @cart.id
+        @cart = Order.create!(status: "pending") # T_T needs default status
+        session[:order_id] = @cart.id
       end
     end
 
