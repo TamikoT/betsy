@@ -2,11 +2,9 @@ class ReviewsController < ApplicationController
   before_action :set_review, only: [:show, :edit, :update, :destroy]
 
 
-
   def index
     @reviews = Review.all
   end
-
 
 
   def create
@@ -23,14 +21,6 @@ class ReviewsController < ApplicationController
     end
   end
 
-
-
-
-
-
-
-
-
   def edit
     @review = Review.find(params[:id])
   end
@@ -38,8 +28,6 @@ class ReviewsController < ApplicationController
   def update
     @review = Review.find(params[:id])
   end
-
-
 
   def new
     @review = Review.new
