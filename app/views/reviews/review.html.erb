@@ -3,15 +3,15 @@
 <h1> Product </h1>
 
   <ul id = 'view'>
-    <li><strong>Title:</strong> <%= @picture.title %></li>
-    <li><strong>Category:</strong> <%= @picture.category %></li>
-    <li><strong>Rating:</strong> <%= pluralize(@picture.rating, 'Star') %></li>
-    <li><strong>Favorited:</strong> By <%= pluralize(@picture.users.count, 'User') %></li></br>
+    <li><strong>Title:</strong> <%= @product.title %></li>
+    <li><strong>Category:</strong> <%= @product.category %></li>
+    <li><strong>Rating:</strong> <%= pluralize(@product.rating, 'Star') %></li>
+    <li><strong>Favorited:</strong> By <%= pluralize(@product.users.count, 'User') %></li></br>
   </ul>
 
-  <% if @picture.rating > 4 %>
+  <% if @product.rating > 4 %>
 
-  <button class = 'top-picture'>Top Rated</button>
+  <button class = 'top-product'>Top Rated</button>
 
   <% end %>
 
