@@ -65,12 +65,13 @@ end
 50.times do
   ProductOrder.create!(
     product_id: Faker::Number.between(1, 50),
-    order_id: Faker::Number.between(1, 50),
+    order_id: Faker::Number.between(1, 20),
+    quantity: 1,
     )
 end
 #
-# # create 50 random user_orders
-50.times do
+# # create 20 random user_orders
+20.times do
   UserOrder.create!(
     user_id: Faker::Number.between(1, 20),
     order_id: Faker::Number.between(1, 50),
