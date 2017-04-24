@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     end
     resources :reviews, only: [:show, :edit, :update, :destroy]
 
-    resources :category, only: [:new, :create] do
+    resources :category, only: [:new, :create, :show] do
         get '/products', to: 'products#index'
     end
 
