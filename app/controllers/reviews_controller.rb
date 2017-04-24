@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-before_action :set_review, only: [:show, :edit, :update, :destroy]
+  before_action :set_review, only: [:show, :edit, :update, :destroy]
 
 
 
@@ -7,33 +7,39 @@ before_action :set_review, only: [:show, :edit, :update, :destroy]
     @reviews = Review.all
   end
 
-  def create
-    Review.create(review_params)
 
+
+  def create
+
+     @review = Review.new(review_params)
+     @review.product_id = params[:product_id]
     if @review.save
-          ;flash[:notice] = 'Review was successfully created.'
-          redirect_to reviews_path
-        else
-          flash[:notice] = "Error creating review: #{@review.errors}"
-          redirect_to reviews_path
+      ;flash[:notice] = 'Review was successfully created.'
+      redirect_to products_path
+    else
+      flash[:notice] = "Error creating review"
+      redirect_to products_path
+
     end
   end
 
+
+
+
+
+
+
+
+
   def edit
-     @review = Review.find(params[:id])
+    @review = Review.find(params[:id])
   end
 
   def update
     @review = Review.find(params[:id])
-
-    if @review.update_attributes(params[:review])
-      flash[:notice] = "Review updated"
-      redirect_to reviews_path
-    else
-      flash[:error] = "There was an error updating your review"
-      redirect_to reviews_path
-    end
   end
+
+
 
   def new
     @review = Review.new
@@ -45,9 +51,9 @@ before_action :set_review, only: [:show, :edit, :update, :destroy]
   end
 
   def destroy
-   @review = Review.find(params[:id])
-   @review.destroy
-   redirect_to products_path
+    @review = Review.find(params[:id])
+    @review.destroy
+    redirect_to products_path
   end
 
   private
