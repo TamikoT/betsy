@@ -1,7 +1,13 @@
 <h2>Your Cart</h2>
+<% if @order.product_orders.empty? %>
+  <%= "You have no items in your cart!" %>
+<% end %>
 
 <%= @order.product_orders.each do |item| %>
   <%= item.product.name %>
   <%= item.product.price %>
   <%= item.quantity %>
 <% end %>
+
+<br />
+<%= link_to "Continue buying fluff.", products_path %>
