@@ -3,7 +3,7 @@ require "test_helper"
 describe Review do
   let(:review) { Review.new }
 
-  it "must be valid" do
+  it "all reviews must be be valid" do
     reviews.each do |review|
       value(review).must_be :valid?
     end
