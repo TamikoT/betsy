@@ -14,7 +14,7 @@ class Order < ApplicationRecord
       current_item.quantity += product_params[:product][:quantity].to_i
       current_item.save!
     else
-      new_item = ProductOrder.create(product_id: product_params[:product][:product_id], quantity: product_params[:product][:quantity], order_id: self.id )
+      ProductOrder.create(product_id: product_params[:product][:product_id], quantity: product_params[:product][:quantity], order_id: self.id )
     end
   end
 end
