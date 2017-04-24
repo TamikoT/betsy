@@ -1,0 +1,6 @@
+<h2>Your Cart</h2>
+
+<%= @order.product_orders.each do |item| %>
+  <%= item.product.name %>
+  <%= item.product.price %>
+  <%= item.quantity %>

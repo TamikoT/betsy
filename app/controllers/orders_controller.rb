@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+
   def index
     @orders = Order.all
   end
@@ -14,7 +15,7 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find_by_id(params[:id].to_i)
+    @order = @cart # in ApplicationController
   end
 
   private
