@@ -10,20 +10,28 @@ describe User do
   end
 
   it "saves the user" do
+    # skip
     user = User.new
     assert !user.save
     assert !user.errors[:first_name].empty?
   end
 
   it "must set the name" do
+    skip
     user = User.new "Audrey"
     assert_equal(user.name, "Audrey")
   end
 
   it "creates the new user" do
+    skip
    @user.name = "Freddie Mac"
    assert_not @user.valid?
   end
 
 
 end
+
+
+# reviews.each do |review|
+#   value(review).must_be :valid?
+# end
