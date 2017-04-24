@@ -4,7 +4,9 @@ describe User do
   let(:user) { User.new }
 
   it "must be valid" do
-    value(user).must_be :valid?
+    users.each do |user|
+      value(user).must_be :valid?
+    end
   end
 
   it "saves the user" do
