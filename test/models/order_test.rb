@@ -21,4 +21,19 @@ describe Order do
       order.must_be :valid?
     end
   end
+
+  describe "associations test" do
+    it "#product_orders - an order can have multiple product orders" do
+      skip
+      assert_equal 2, orders(:one).product_orders.size
+    end
+
+    it "#user_orders" do
+    end
+  end
 end
+
+# describe "associations test" do
+#   it "#product_categories - recognizes the correct number" do
+#     assert_equal 2, categories(:one).product_categories.size
+#   end
