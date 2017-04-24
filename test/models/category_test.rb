@@ -28,11 +28,5 @@ describe Category do
     it "#product_categories - a category can have multiple product categories" do
       assert_equal 2, categories(:one).product_categories.size
     end
-
-    it "#products - a category can have multiple products" do
-      skip
-      # FIXME: Might be fixtures or the way I am calling it, not sure.
-      assert_equal 2, categories(:one).product_categories.products.size
-    end
   end
 end
