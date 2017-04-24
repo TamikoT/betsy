@@ -14,7 +14,7 @@
     <!-- T_T under the assumption that a category belongs to a product -->
     <li>
       Category: <% @product.categories.each do |category|%>
-        <%= link_to category.name, category_products_path(category.id) %>
+      <%= link_to category.name, category_products_path(category.id) %>
       <% end %>
     </li>
   </ul>
@@ -22,30 +22,39 @@
 
 <div>
   <% if @current_user %>
-    <p>You own this fluff!</p>
+  <p>You own this fluff!</p>
   <% else %>
   <!-- T_T needs real link s-->
-    <button>Add to cart</button>
+  <button>Add to cart</button>
   <% end %>
 </div>
 
 <section>
   <h4>Reviews</h4>
+
+
+
+
   <article>
     <% if @product.reviews == 0 %>
-      <p>Unrated fluff. <%= link_to "Be the first to review!", new_review_path %></p>
+    <p>Unrated fluff. <%= link_to "Be the first to review!", new_review_path %></p>
     <% else %>
-      <!-- T_T should we style as comment card or table? -->
-      <div class=review>
-      <%= @product.reviews.each do |review| %>
-        <%= review.updated_at %>
-        Rating: <%= review.rating %>
-        Decription: <%= review.comment %>
-      <% end %>
-      </div>
-      <%= link_to "Review this fluff.", new_review_path %>
-    <% end %>
-  </article>
+
+<table>
+  <tr>
+    <th>Rating</th>
+    <th>Comment</th>
+    <th>Last Update</th>
+  </tr>
+  <% @product.reviews.each do |review| %>
+  <tr>
+    <td><%= review.rating %></td>
+    <td><%= review.comment %></td>
+    <td><%= review.updated_at %></td>
+  </tr>
+  <%end%>
+</table>
+<%end%>
 </section>
 
 <!-- <%= link_to "Add to Cart", add_to_cart_path(@product), class: "button", method: :post %> -->
@@ -58,3 +67,6 @@
 <% end %>
 
 <!-- post 'products/:id/cart', to: 'orders#add_product', as: 'add_to_cart' -->
+
+
+<%= link_to "Review this fluff.", new_product_review_path(@product) %>
