@@ -23,7 +23,7 @@ class ProductsController < ApplicationController
     end
 
     def show
-        @product = Product.find_by_id(params[:id].to_i)
+        @product = Product.find_by(id: params[:id])
     end
 
     def update

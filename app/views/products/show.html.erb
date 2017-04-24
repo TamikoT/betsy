@@ -47,3 +47,7 @@
     <% end %>
   </article>
 </section>
+
+<%= link_to "Add to Cart", add_to_cart_path(@product), class: "button", method: :post %>
+
+<!-- post 'products/:id/cart', to: 'orders#add_product', as: 'add_to_cart' -->

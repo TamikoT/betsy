@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     post 'login', to: 'sessions#login'
     post 'logout', to: 'sessions#logout', as: 'logout'
 
+    post 'products/:id/cart', to: 'orders#add_product', as: 'add_to_cart'
 
 
-    
 end

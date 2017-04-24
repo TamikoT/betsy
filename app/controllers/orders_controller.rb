@@ -19,6 +19,10 @@ class OrdersController < ApplicationController
     @order = @cart # in ApplicationController
   end
 
+  def add_product # passed in from product view
+    ProductOrder.new(product_id: @product, order_id: @cart)
+  end
+
   private
 
   def order_params

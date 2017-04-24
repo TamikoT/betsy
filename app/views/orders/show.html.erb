@@ -1,12 +1,12 @@
 <h2>Your Cart</h2>
 <% if @order.product_orders.empty? %>
   <%= "You have no items in your cart!" %>
-<% end %>
-
-<%= @order.product_orders.each do |item| %>
-  <%= item.product.name %>
-  <%= item.product.price %>
-  <%= item.quantity %>
+<% else %>
+  <%= @order.product_orders.each do |item| %>
+    <%= item.product.name %>
+    <%= item.product.price %>
+    <%= item.quantity %>
+  <% end %>
 <% end %>
 
 <br />
