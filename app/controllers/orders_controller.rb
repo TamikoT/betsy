@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_action :initialize_cart, only: [:show]
 
   def index
     @orders = Order.all
