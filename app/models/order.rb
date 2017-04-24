@@ -8,5 +8,8 @@ class Order < ApplicationRecord
   has_many :users, through: :user_orders
 
   def subtotal
+    @cart.product_orders.each do |item|
+      item.
+    end
   end
 end
