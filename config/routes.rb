@@ -19,4 +19,6 @@ Rails.application.routes.draw do
     get 'login', to: 'sessions#new', as: 'login'
     post 'login', to: 'sessions#login'
     post 'logout', to: 'sessions#logout', as: 'logout'
+
+    post 'products/:id/cart', to: 'orders#add_product', as: 'add_to_cart'
 end
