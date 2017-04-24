@@ -1,13 +1,27 @@
 <h2>Your Cart</h2>
-<% if @order.product_orders.empty? %>
-  <%= "You have no items in your cart!" %>
-<% else %>
-  <%= @order.product_orders.each do |item| %>
-    <%= Product.find_by_id(item.product_id).name %>
-    <%= Product.find_by_id(item.product_id).price %>
-    <%= item.quantity %>
-  <% end %>
-<% end %>
 
-<br />
+
+<table>
+  <tbody>
+    <% if @order.product_orders.empty? %>
+    <%= "You have no items in your cart!" %>
+    <% else %>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tr>
+      <% @order.product_orders.each do |item| %>
+      <td> <%= Product.find_by_id(item.product_id).name %> </td>
+      <td><%= Product.find_by_id(item.product_id).price %> </td>
+      <td><%= item.quantity %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </table>
+</tbody>
+
 <%= link_to "Continue buying fluff.", products_path %>
