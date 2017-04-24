@@ -20,12 +20,18 @@ class OrdersController < ApplicationController
   end
 
   def add_product # passed in from product view
-    ProductOrder.new(product_id: @product, order_id: @cart)
+    new_line_item = ProductOrder.new(product_params)
+    new_line_item.save!
+    redirect_to order_path
   end
 
   private
 
   def order_params
     return params.require(:order).permit(:status)
+  end
+
+  def product_params
+    return params.permit(:product_id, :quantity, :order_id)
   end
 end

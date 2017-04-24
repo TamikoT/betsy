@@ -3,8 +3,8 @@
   <%= "You have no items in your cart!" %>
 <% else %>
   <%= @order.product_orders.each do |item| %>
-    <%= item.product.name %>
-    <%= item.product.price %>
+    <%= Product.find_by_id(item.product_id).name %>
+    <%= Product.find_by_id(item.product_id).price %>
     <%= item.quantity %>
   <% end %>
 <% end %>

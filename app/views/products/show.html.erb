@@ -48,6 +48,13 @@
   </article>
 </section>
 
-<%= link_to "Add to Cart", add_to_cart_path(@product), class: "button", method: :post %>
+<!-- <%= link_to "Add to Cart", add_to_cart_path(@product), class: "button", method: :post %> -->
+<%= form_tag({controller: "orders", action: "add_product"}, method: "post") do %>
+    <%= hidden_field_tag :product_id, @product.id %>
+    <%= hidden_field_tag :order_id, @cart.id %>
+    <%= label_tag "Quantity:" %>
+    <%= number_field_tag :quantity, 1 %>
+    <%= submit_tag("Add to Cart") %>
+<% end %>
 
 <!-- post 'products/:id/cart', to: 'orders#add_product', as: 'add_to_cart' -->
