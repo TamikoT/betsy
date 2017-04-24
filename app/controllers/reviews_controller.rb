@@ -39,6 +39,7 @@ before_action :set_review, only: [:show, :edit, :update, :destroy]
     @review = Review.new
   end
 
+
   def show
     @review = Review.find_by_id(params[:id].to_i)
   end
