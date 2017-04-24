@@ -2,13 +2,18 @@ Rails.application.routes.draw do
     root 'home#index'
 
     resources :users, except: [:edit, :update, :destroy]
-    resources :products, except: [:destroy]
-    resources :category, only: [:new, :create] do
+    resources :orders, except: [:edit, :update, :destroy]
+    resources :reviews, only: [:show, :edit, :update, :destroy]
+
+    resources :products, except: [:destroy] do
+        resources :reviews, only: [:new, :create, :new]
+    end
+
+    resources :categories, only: [:new, :create] do
         get '/products', to: 'products#index'
     end
-    resources :reviews, except: [:edit, :update, :destroy]
-    resources :orders, except: [:edit, :update, :destroy]
 
+    post '/products/:id/addcategory', to: 'products#add_category', as: 'add_category'
     get '/auth/:provider/callback', to: 'sessions#create'
 
     get 'login', to: 'sessions#new', as: 'login'
@@ -16,6 +21,4 @@ Rails.application.routes.draw do
     post 'logout', to: 'sessions#logout', as: 'logout'
 
     post 'products/:id/cart', to: 'orders#add_product', as: 'add_to_cart'
-
-
 end
