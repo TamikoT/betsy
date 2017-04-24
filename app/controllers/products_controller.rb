@@ -32,11 +32,10 @@ class ProductsController < ApplicationController
     end
 
     def add_category
-        raise
-        new_category = ProductCategory.new(product_id: params[:id], category_id: params[:category])
+        new_category = ProductCategory.new(product_id: params[:product_id], category_id: params[:category][:id])
         if new_category.save
             flash[:status] = :success
-            flash[:result_text] = "Successfluffy categorized #{product.name} as #{category.name}"
+            flash[:result_text] = "Successfluffy categorized #{Product.find_by(id: params[:id]).name} as #{Category.find_by(id: params[:category][:id]).name}"
         else
             flash[:status] = :failure
             flash[:result_text] = 'Unable to add category'
@@ -44,6 +43,8 @@ class ProductsController < ApplicationController
         end
         redirect_to user_path(@current_user)
     end
+
+    def remove_category; end
 
     private
 
