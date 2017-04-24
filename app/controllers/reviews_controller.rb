@@ -13,10 +13,11 @@ class ReviewsController < ApplicationController
      @review.product_id = params[:product_id]
     if @review.save
       ;flash[:notice] = 'Review was successfully created.'
-      redirect_to products_path
+      redirect_to product_path(@review.product.id)
+
     else
       flash[:notice] = "Error creating review"
-      redirect_to products_path
+      redirect_to product_path(@review.product.id)
 
     end
   end
