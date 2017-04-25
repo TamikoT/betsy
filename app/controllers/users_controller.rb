@@ -10,7 +10,6 @@ class UsersController < ApplicationController
     end
 
     def show
-        @chosen_category = category_params
         @user = User.find_by(id: params[:id])
         head :not_found if @user.nil?
     end
@@ -31,9 +30,5 @@ class UsersController < ApplicationController
 
     def user_params
         params.require(:user).permit(:username, :email)
-    end
-
-    def category_params
-        params[:category][:id] unless params[:category].nil?
     end
 end

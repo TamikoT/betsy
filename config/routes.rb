@@ -9,11 +9,13 @@ Rails.application.routes.draw do
         resources :reviews, only: [:new, :create, :new]
     end
 
-    resources :categories, only: [:new, :create] do
+
+    resources :categories, only: [:new, :create, :show] do
         get '/products', to: 'products#index'
     end
 
-    post '/products/:id/addcategory', to: 'products#add_category', as: 'add_category'
+    post '/products/:id/addcategory', to: 'products#add_category'
+    delete '/products/:id/removecategory', to: 'products#remove_category', as: 'remove_category'
     get '/auth/:provider/callback', to: 'sessions#create'
 
     get 'login', to: 'sessions#new', as: 'login'
