@@ -10,12 +10,14 @@
         <th>Name</th>
         <th>Quantity</th>
         <th>Price</th>
+        <th>Subtotal</th>
       </tr>
     </thead>
     <tfoot>
       <tr>
         <th>Total</th>
         <td><%= @items %></td>
+        <td></td>
         <td><%= "$ #{'%.2f' % @sum}" %></td>
       </tr>
     </tfoot>
@@ -30,8 +32,9 @@
         <%= submit_tag "Update", class: "button" %>
       <% end %>
       </td>
-
       <td><%= Product.find_by_id(item.product_id).price %> </td>
+      <!-- subtotal for the item based on the unit price and quantity -->
+      <td><%= item.quantity * Product.find_by_id(item.product_id).price %> </td>
       <% end %>
     </tr>
     <% end %>

@@ -63,6 +63,11 @@ class OrdersController < ApplicationController
     return items
   end
 
-  def subtotal
-  end
+  # def subtotal
+  #   subtotal_hash = {}
+  #   @cart.product_orders.each do |item|
+  #     subtotal_hash[item.id] = item.quantity
+  #   end
+  # end
+
 end
