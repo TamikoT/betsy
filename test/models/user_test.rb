@@ -3,33 +3,58 @@ require "test_helper"
 describe User do
   let(:user) { User.new }
 
-  it "must be valid" do
+  it "all users must be be valid" do
     users.each do |user|
       value(user).must_be :valid?
     end
   end
 
-  it "saves the user" do
-    # skip
-    user = User.new
-    assert !user.save
-    assert !user.errors[:first_name].empty?
+  it "does not save an invalid the user" do
+    user.wont_be :valid?
   end
 
-  it "must set the name" do
-    skip
-    user = User.new "Audrey"
-    assert_equal(user.name, "Audrey")
+  describe "validation tests" do
+    it "new user can not be created without a username" do
+      user[:username] = nil
+      user.save
+
+      user.must_be :invalid?
+    end
+
+    it "new user can not be created without a email" do
+      user[:email] = nil
+
+      user.must_be :invalid? #assert user.invalid?
+    end
+
+    it "new user can be created with valid username and email" do
+      user[:username] = "unique_name"
+      user[:email] = "unique_name@xxxxxx.com"
+
+      user.must_be :valid?
+    end
   end
 
-  it "creates the new user" do
-    skip
-   @user.name = "Freddie Mac"
-   assert_not @user.valid?
+  describe "associations test" do
+    it "#products" do
+      assert_equal 2, users(:user1).products.size
+    end
+
+    it "#user_orders" do
+      assert_equal 2, users(:user1).user_orders.size
+    end
+
+    it "#orders, (through #user_products)" do
+      assert_equal 2, users(:user1).orders.size
+    end
+
+    it "#reviews" do
+      assert_equal 2, users(:user1).reviews.size
+    end
   end
-
-
 end
+
+
 
 
 # reviews.each do |review|
