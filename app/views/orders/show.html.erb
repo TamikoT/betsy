@@ -22,6 +22,7 @@
           <td><%= @items %> items</td>
           <td></td>
           <td><%= "$ #{'%.2f' % @sum}" %></td>
+          <td></td>
         </tr>
       </tfoot>
 
@@ -32,20 +33,21 @@
 
           <td>
           <%= form_tag({controller: "orders", action: "update_quantity"}, method: "post") do %>
-            <%= number_field_tag :quantity, item.quantity, class: "text-center" %>
+            <div class="medium-6 columns"><%= number_field_tag :quantity, item.quantity, class: "text-center" %></div>
             <%= hidden_field_tag :item_id, item.id %>
             <%= submit_tag "Update", class: "small button" %>
           <% end %>
-
+          </td>
+          <td>$ <%= Product.find_by_id(item.product_id).price %> ea.</td>
+          <!-- subtotal for the item based on the unit price and quantity -->
+          <td>$ <%= item.quantity * Product.find_by_id(item.product_id).price %></td>
+          <td>
           <%= form_tag({controller: "orders", action: "update_quantity"}, method: "post") do %>
             <%= hidden_field_tag :quantity, 0 %>
             <%= hidden_field_tag :item_id, item.id %>
             <%= submit_tag "Remove", class: "small button" %>
           <% end %>
           </td>
-          <td>$ <%= Product.find_by_id(item.product_id).price %> ea.</td>
-          <!-- subtotal for the item based on the unit price and quantity -->
-          <td>$ <%= item.quantity * Product.find_by_id(item.product_id).price %></td>
         </tr>
         <% end %>
 
