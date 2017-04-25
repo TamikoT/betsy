@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
             session[:user_id] = user.id
             flash[:result_text] = "Welcome back,  #{user.username}"
         else
-            flash[:result_text] = 'Could not log in'
+            flash[:result_text] = 'Could not log in' #this is kinda buggy : (
             flash[:messages] = user.errors.messages
             render 'new', status: :bad_request
         end

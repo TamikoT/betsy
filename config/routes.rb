@@ -9,7 +9,8 @@ Rails.application.routes.draw do
         resources :reviews, only: [:new, :create, :new]
     end
 
-    resources :categories, only: [:new, :create] do
+
+    resources :categories, only: [:new, :create, :show] do
         get '/products', to: 'products#index'
     end
 
@@ -21,4 +22,5 @@ Rails.application.routes.draw do
     post 'logout', to: 'sessions#logout', as: 'logout'
 
     post 'products/:id/cart', to: 'orders#add_product', as: 'add_to_cart'
+    post 'orders/:id/update', to: 'orders#update_quantity'
 end
