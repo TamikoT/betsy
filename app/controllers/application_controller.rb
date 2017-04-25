@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
         @cart = Order.find(session[:order_id])
       else
         @cart = Order.create!(status: "pending") # T_T needs default status
+        raise
         session[:order_id] = @cart.id
       end
     end
