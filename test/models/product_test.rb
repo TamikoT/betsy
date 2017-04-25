@@ -9,21 +9,44 @@ describe Product do
     end
   end
 
-  it "saves the product" do
-    product = Product.new
-    assert !product.save
-    assert !product.errors[:name].empty?
+  it "does not save" do
+    product.wont_be :valid?
   end
 
-  it "must set the name" do
-    product = Product.new
-    assert_equal(user.name, "Audrey")
+  describe "validation tests" do
+    it "product can not be created without a valid status" do
+      products(:two)[:status] = nil
+      
+      products(:two).must_be :invalid?
+    end
+
+    it "product can not be created without valid stock" do
+
+    end
   end
-
-
-  validates :status, presence: true
-  validates :stock, presence: true
-  validates :name, presence: true
-  validates :price, presence: true
-  validates :user_id, presence: true
 end
+
+# it "new user can not be created without a username" do
+#   user[:username] = nil
+#   user.save
+#
+#   user.must_be :invalid?
+# end
+
+# it "saves the product" do
+#   product = Product.new
+#   assert !product.save
+#   assert !product.errors[:name].empty?
+# end
+#
+# it "must set the name" do
+#   product = Product.new
+#   assert_equal(user.name, "Audrey")
+# end
+#
+#
+# validates :status, presence: true
+# validates :stock, presence: true
+# validates :name, presence: true
+# validates :price, presence: true
+# validates :user_id, presence: true
