@@ -52,6 +52,8 @@ describe User do
       assert_equal 2, users(:user1).reviews.size
     end
   end
+
+  #TODO: self.from_github test
 end
 
 
