@@ -16,12 +16,26 @@ describe Product do
   describe "validation tests" do
     it "product can not be created without a valid status" do
       products(:two)[:status] = nil
-      
-      products(:two).must_be :invalid?
+
+      products(:two).wont_be :valid?
     end
 
     it "product can not be created without valid stock" do
+      products(:two)[:stock] = -1
 
+      products(:two).must_be :invalid?
+    end
+
+    it "product can not be created without name" do
+      products(:two)[:name] = nil
+
+      products(:two).must_be :invalid?
+    end
+
+    it "product can not be created without valid price" do
+      products(:two)[:price] = -2
+
+      products(:two).must_be :invalid?
     end
   end
 end
