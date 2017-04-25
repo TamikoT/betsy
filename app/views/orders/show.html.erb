@@ -2,7 +2,7 @@
 
 <table>
   <tbody>
-    <% if @order.product_orders.empty? %>
+    <% if @order.product_orders.nil? %>
     <%= "You have no items in your cart!" %>
     <% else %>
     <thead>
@@ -21,17 +21,20 @@
     </tfoot>
     <% @order.product_orders.each do |item| %>
     <tr>
-      <td> <%= Product.find_by_id(item.product_id).name %> </td>
+      <td><%= Product.find_by_id(item.product_id).name %> </td>
+
       <td>
-        <%= form_tag({controller: "orders", action: "update_quantity"}, method: "post") do %>
-          <%= number_field_tag :quantity, item.quantity %>
-          <%= hidden_field_tag :id, item.id %>
-        <% end %>
+      <%= form_tag({controller: "orders", action: "update_quantity"}, method: "post") do %>
+        <div class="medium-2 columns"><%= number_field_tag :quantity, item.quantity %></div>
+        <%= hidden_field_tag :item_id, item.id %>
+        <%= submit_tag "Update", class: "button" %>
+      <% end %>
       </td>
+
       <td><%= Product.find_by_id(item.product_id).price %> </td>
       <% end %>
-    <% end %>
     </tr>
+    <% end %>
   </table>
 </tbody>
 
