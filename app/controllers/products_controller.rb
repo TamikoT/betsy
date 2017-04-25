@@ -56,7 +56,13 @@ class ProductsController < ApplicationController
         redirect_to user_path(@current_user)
     end
 
-    def remove_category; end
+    def remove_category
+        deleted_category = ProductCategory.find_by(product_id: params[:id], category_id: params[:category_id])
+        deleted_category.destroy
+        flash[:status] = :success
+        flash[:result_text] = "Successfluffy removed #{Product.find_by(id: params[:id]).name} from #{Category.find_by(id: params[:category_id]).name}"
+        redirect_to user_path(@current_user)
+    end
 
     private
 
