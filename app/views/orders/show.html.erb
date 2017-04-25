@@ -8,21 +8,32 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Price</th>
         <th>Quantity</th>
+        <th>Price</th>
       </tr>
     </thead>
+    <tfoot>
+      <tr>
+        <th>Total</th>
+        <td><%= @items %></td>
+        <td><%= "$ #{'%.2f' % @sum}" %></td>
+      </tr>
+    </tfoot>
     <% @order.product_orders.each do |item| %>
     <tr>
       <td> <%= Product.find_by_id(item.product_id).name %> </td>
+      <td>
+        <%= form_tag({controller: "orders", action: "update_quantity"}, method: "post") do %>
+          <%= number_field_tag :quantity, item.quantity %>
+          <%= hidden_field_tag :id, item.id %>
+        <% end %>
+      </td>
       <td><%= Product.find_by_id(item.product_id).price %> </td>
-      <td><%= item.quantity %></td>
       <% end %>
     <% end %>
     </tr>
   </table>
 </tbody>
 
-Subtotal: <%= @sum %>
-
-<%= link_to "Continue buying fluff.", products_path %>
+<%= link_to "Continue buying fluff", products_path, class: "button" %>
+<%= link_to "Checkout", products_path, class: "button" %>
