@@ -1,45 +1,58 @@
 <h2>Your Cart</h2>
 
-<table>
-  <tbody>
-    <% if @order.product_orders.nil? %>
-    <%= "You have no items in your cart!" %>
-    <% else %>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Subtotal</th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-        <th>Total</th>
-        <td><%= @items %></td>
-        <td></td>
-        <td><%= "$ #{'%.2f' % @sum}" %></td>
-      </tr>
-    </tfoot>
-    <% @order.product_orders.each do |item| %>
-    <tr>
-      <td><%= Product.find_by_id(item.product_id).name %> </td>
 
-      <td>
-      <%= form_tag({controller: "orders", action: "update_quantity"}, method: "post") do %>
-        <div class="medium-2 columns"><%= number_field_tag :quantity, item.quantity %></div>
-        <%= hidden_field_tag :item_id, item.id %>
-        <%= submit_tag "Update", class: "button" %>
-      <% end %>
-      </td>
-      <td><%= Product.find_by_id(item.product_id).price %> </td>
-      <!-- subtotal for the item based on the unit price and quantity -->
-      <td><%= item.quantity * Product.find_by_id(item.product_id).price %> </td>
-      <% end %>
-    </tr>
-    <% end %>
-  </table>
-</tbody>
+<% if @order.product_orders.nil? %>
+  <%= "You have no items in your cart!" %>
+<% else %>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th width="400">Quantity</th>
+          <th>Price</th>
+          <th>Subtotal</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+
+      <tfoot>
+        <tr>
+          <th>Total</th>
+          <td><%= @items %> items</td>
+          <td></td>
+          <td><%= "$ #{'%.2f' % @sum}" %></td>
+        </tr>
+      </tfoot>
+
+      <tbody>
+        <% @order.product_orders.each do |item| %>
+        <tr>
+          <td><%= Product.find_by_id(item.product_id).name %> </td>
+
+          <td>
+          <%= form_tag({controller: "orders", action: "update_quantity"}, method: "post") do %>
+            <%= number_field_tag :quantity, item.quantity, class: "text-center" %>
+            <%= hidden_field_tag :item_id, item.id %>
+            <%= submit_tag "Update", class: "small button" %>
+          <% end %>
+
+          <%= form_tag({controller: "orders", action: "update_quantity"}, method: "post") do %>
+            <%= hidden_field_tag :quantity, 0 %>
+            <%= hidden_field_tag :item_id, item.id %>
+            <%= submit_tag "Remove", class: "small button" %>
+          <% end %>
+          </td>
+          <td>$ <%= Product.find_by_id(item.product_id).price %> ea.</td>
+          <!-- subtotal for the item based on the unit price and quantity -->
+          <td>$ <%= item.quantity * Product.find_by_id(item.product_id).price %></td>
+        </tr>
+        <% end %>
+
+      </tbody>
+    </table>
+  </div>
+<% end %>
 
 <%= link_to "Continue buying fluff", products_path, class: "button" %>
 <%= link_to "Checkout", products_path, class: "button" %>
