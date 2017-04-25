@@ -34,5 +34,7 @@ describe Review do
     it "#product" do
       assert_equal "MyString", reviews(:one).product.name
     end
+
+    #Do I need on that tests a review can not have two products?
   end
 end
