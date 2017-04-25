@@ -9,7 +9,7 @@ describe User do
     end
   end
 
-  it "does not save an invalid the user" do
+  it "does not save an invalid user" do
     user.wont_be :valid?
   end
 
