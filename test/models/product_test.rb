@@ -4,7 +4,9 @@ describe Product do
   let(:product) { Product.new }
 
   it "all products must be valid" do
-    value(product).must_be :valid?
+    products.each do |product|
+      value(product).must_be :valid?
+    end
   end
 
   it "saves the product" do
@@ -24,8 +26,4 @@ describe Product do
   validates :name, presence: true
   validates :price, presence: true
   validates :user_id, presence: true
-
-
-
-
 end
