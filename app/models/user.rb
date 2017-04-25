@@ -18,14 +18,13 @@ class User < ApplicationRecord
 
     def total_earnings(user)
         total_earnings = 0
-        user.orders.each do |order|
-            next unless order.status == 'complete'
-            order.products.each do |product|
-                if @user.products.include? product
+        user.products.each do |product|
+            product.orders.each do |order|
+                if order.status == 'complete'
                     total_earnings += product.price * ProductOrder.find_by(order_id: order.id, product_id: product.id).quantity
                 end
             end
         end
-        total_earnings
+        sprintf('%.2f', total_earnings)
     end
 end
