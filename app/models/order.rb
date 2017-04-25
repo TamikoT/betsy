@@ -8,8 +8,9 @@ class Order < ApplicationRecord
   has_many :users, through: :user_orders
 
   def subtotal
+    sum = 0.00
     @cart.product_orders.each do |item|
-      item.
+      sum += Product.find_by_id(item.product_id).price
     end
   end
 end
