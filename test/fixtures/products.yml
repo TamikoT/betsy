@@ -8,6 +8,7 @@ one:
   photo: MyString
   status: false
   # category: one
+  # rating: one
 
 two:
   stock: 1
