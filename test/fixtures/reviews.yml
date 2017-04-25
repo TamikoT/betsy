@@ -3,7 +3,9 @@
 one:
   rating: 1.5
   comment: MyString
+  product: one
 
 two:
   rating: 1.5
   comment: MyString
+  product: two

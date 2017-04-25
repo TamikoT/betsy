@@ -31,7 +31,8 @@ describe Review do
   end
 
   describe "association test" do
-    it "#product - test belongs to rlxn" do
+    it "#product" do
+      assert_equal "MyString", reviews(:one).product.name
     end
   end
 end
