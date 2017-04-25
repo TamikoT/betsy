@@ -3,6 +3,8 @@
 
 <h4>Products</h4>
 <%= link_to "Create New Category", new_category_path %>
+<%= link_to "Create New Product", new_product_path %>
+
 <table>
   <thead>
     <tr>
@@ -21,8 +23,11 @@
         <% product.categories.each do |category| %>
         <%= link_to category.name, category_products_path(category.id) %><br>
         <% end %>
+        <%= form_tag({controller:'products', action: 'add_category'}, method: 'post') do %>
+        <%= hidden_field_tag :product_id, product.id %>
         <%= collection_select(:category, :id, Category.all, :id, :name, {prompt: 'Select Category'}, onchange: "this.form.submit();") %>
-        <%= link_to 'Add new category', add_category_path(product.id, :category => @chosen_category), :method => :post%>
+        <% end %>
+        <!-- <%= link_to 'Add new category', add_category_path(product.id, :category => @chosen_category), :method => :post%> -->
       </td>
       <td><%= "#{'%.2f' % product.price}" %></td>
     </tr>

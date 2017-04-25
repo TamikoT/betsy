@@ -24,7 +24,7 @@ describe Order do
 
   describe "associations test" do
     it "#product_orders - an order can have multiple product orders" do
-      skip
+      # skip
       assert_equal 2, orders(:one).product_orders.size
     end
 
