@@ -17,6 +17,7 @@ class OrdersController < ApplicationController
 
   def show
     @order = @cart # in ApplicationController
+    @sum = cart_total
   end
 
   def add_product # passed in from product view
@@ -33,5 +34,14 @@ class OrdersController < ApplicationController
 
   def product_params
     return params.permit(:product_id, :quantity, :order_id)
+  end
+
+  def cart_total
+    sum = 0.00
+    @cart.product_orders.each do |item|
+      product = Product.find_by_id(item.product_id)
+      sum += product.price * item.quantity
+    end
+    return sum
   end
 end

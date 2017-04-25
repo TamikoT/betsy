@@ -7,10 +7,13 @@ class Order < ApplicationRecord
   has_many :user_orders
   has_many :users, through: :user_orders
 
-  def subtotal
+  def cart_total
     sum = 0.00
     @cart.product_orders.each do |item|
-      sum += Product.find_by_id(item.product_id).price
+      quantity = item.quantity
+      product = Product.find_by_id(item.product_id)
+      sum += product.price * quantity
     end
+    return sum
   end
 end

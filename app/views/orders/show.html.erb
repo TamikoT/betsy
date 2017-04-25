@@ -12,15 +12,17 @@
         <th>Quantity</th>
       </tr>
     </thead>
+    <% @order.product_orders.each do |item| %>
     <tr>
-      <% @order.product_orders.each do |item| %>
       <td> <%= Product.find_by_id(item.product_id).name %> </td>
       <td><%= Product.find_by_id(item.product_id).price %> </td>
       <td><%= item.quantity %></td>
       <% end %>
-    </tr>
     <% end %>
+    </tr>
   </table>
 </tbody>
+
+Subtotal: <%= @sum %>
 
 <%= link_to "Continue buying fluff.", products_path %>
