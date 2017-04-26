@@ -21,7 +21,11 @@ Total Earnings: $<%= @user.total_earnings(@user)%>
     <% @user.products.each do |product| %>
     <tr>
       <td> <%= image_tag product.photo %> </td>
-      <td><%= link_to product.name, product_path %></td>
+      <td><%= link_to product.name, product_path(product.id) %>
+        <% if @current_user.products.include? product %>
+        oo <%= link_to 'Edit this product', edit_product_path(product.id)%>
+        <%end%>
+      </td>
       <td>
         <% product.categories.each do |category| %>
         <%= link_to category.name, category_products_path(category.id) %>
@@ -43,6 +47,7 @@ Total Earnings: $<%= @user.total_earnings(@user)%>
 
       </td>
       <td><%= "#{'%.2f' % product.price}" %></td>
+
     </tr>
     <% end %>
 

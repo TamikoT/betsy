@@ -7,6 +7,8 @@ class User < ApplicationRecord
     has_many :orders, through: :user_orders
     has_many :reviews, through: :products
 
+    accepts_nested_attributes_for :products
+
     def self.from_github(auth_hash)
         user = User.new
         user.username = auth_hash['info']['nickname']

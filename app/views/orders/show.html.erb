@@ -29,7 +29,7 @@
       <tbody>
         <% @order.product_orders.each do |item| %>
         <tr>
-          <td><%= Product.find_by_id(item.product_id).name %> </td>
+          <td><%=link_to "#{Product.find_by_id(item.product_id).name}", product_path(item.product_id) %> </td>
 
           <td>
           <%= form_tag({controller: "orders", action: "update_quantity"}, method: "post") do %>

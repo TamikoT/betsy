@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
     root 'home#index'
 
-    resources :users, except: [:edit, :update, :destroy]
+    resources :users, except: [:edit, :update, :destroy] do
+        resources :products, only: [:index, :edit, :update]
+        get '/orders', to: 'order#index'
+    end
     resources :orders, except: [:destroy]
     resources :reviews, only: [:show, :edit, :update, :destroy]
 

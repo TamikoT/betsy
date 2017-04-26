@@ -48,10 +48,14 @@ class OrdersController < ApplicationController
     end
 
     def add_product # passed in from product view
-        new_line_item = ProductOrder.new(product_params)
-        new_line_item.save!
-
-        redirect_to order_path
+        if ProductOrder.find_by(product_params)
+            flash[:result_text] = 'That product is already in your cart!'
+            redirect_to :back
+        else
+            new_line_item = ProductOrder.new(product_params)
+            new_line_item.save!
+            redirect_to order_path
+        end
     end
 
     def remove_product
