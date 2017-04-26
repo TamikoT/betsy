@@ -47,11 +47,19 @@ class OrdersController < ApplicationController
         end
     end
 
-    def add_product # passed in from product view
-        new_line_item = ProductOrder.new(product_params)
-        new_line_item.save!
+    # T_T passed in from product/show view
+    def add_product
+      prev_item = ProductOrder.find_by(product_id: product_params[:product_id], order_id: product_params[:order_id])
 
-        redirect_to order_path
+      # T_T will increase qty if item exists in cart already
+      if prev_item
+        prev_item.quantity += product_params[:quantity].to_i
+        prev_item.save!
+      else
+        ProductOrder.create!(product_params)
+      end
+
+      redirect_to order_path
     end
 
     def remove_product
@@ -64,8 +72,10 @@ class OrdersController < ApplicationController
     def update_quantity
         line_item = ProductOrder.find_by_id(params[:item_id].to_i)
         line_item.quantity = params[:quantity].to_i
+
+        # T_T removes product from cart when qty is updated to 0
         if line_item.quantity == 0
-            line_item.destroy!
+          line_item.destroy!
         else
           line_item.save!
         end
