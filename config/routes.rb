@@ -2,13 +2,12 @@ Rails.application.routes.draw do
     root 'home#index'
 
     resources :users, except: [:edit, :update, :destroy]
-    resources :orders, except: [:edit, :update, :destroy]
+    resources :orders, except: [:destroy]
     resources :reviews, only: [:show, :edit, :update, :destroy]
 
     resources :products, except: [:destroy] do
         resources :reviews, only: [:new, :create, :new]
     end
-
 
     resources :categories, only: [:new, :create, :show] do
         get '/products', to: 'products#index'
