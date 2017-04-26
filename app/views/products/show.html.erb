@@ -60,7 +60,7 @@
               <%= hidden_field_tag :product_id, @product.id %>
               <%= hidden_field_tag :order_id, @cart.id %>
               <%= label_tag "Quantity:" %>
-              <%= number_field_tag :quantity, 1 %>
+              <%= select_tag "Quantity", options_for_select( (1.."#{@product.stock}".to_i).map  ) %>
               <%= submit_tag("Add to Cart") %>
           <% end %>
           <%end%>
