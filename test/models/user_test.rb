@@ -35,7 +35,7 @@ describe User do
     end
   end
 
-  describe "associations test" do
+  describe "association test" do
     it "#products" do
       assert_equal 2, users(:user1).products.size
     end
