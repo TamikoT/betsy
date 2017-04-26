@@ -14,7 +14,7 @@ Total Earnings: $<%= @user.total_earnings(@user)%>
       <th>Photo</th>
       <th>Name</th>
       <th>Categories</th>
-      <th>Status</th>
+      <th>Retired</th>
       <th>Price</th>
     </tr>
   </thead>
@@ -51,12 +51,19 @@ Total Earnings: $<%= @user.total_earnings(@user)%>
       </td>
 
       <td>
-        <%= product.status %>
+        <%#= product.status %>
         <%= form_for product, :url => { :action => "update", :controller => "products" , :id => product.id } do |f| %>
         <%= f.check_box :status, :onclick => "this.form.submit();" %>
         <% end %>
 
+
+
       </td>
+
+
+
+
+
 
 
       <td><%= "#{'%.2f' % product.price}" %></td>
