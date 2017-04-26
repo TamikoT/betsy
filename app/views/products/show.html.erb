@@ -41,23 +41,29 @@
     <td><%= review.rating %></td>
     <td><%= review.comment %></td>
     <td><%= review.updated_at %></td>
+
   </tr>
   <%end%>
 </table>
 <%end%>
 </section>
 
-<% if @current_user.products.include? @product %>
-<%= link_to 'Edit this product', edit_product_path(@product.id)%>
-<%else%>
-<%= form_tag({controller: "orders", action: "add_product"}, method: "post") do %>
-    <%= hidden_field_tag :product_id, @product.id %>
-    <%= hidden_field_tag :order_id, @cart.id %>
-    <%= label_tag "Quantity:" %>
-    <%= number_field_tag :quantity, 1 %>
-    <%= submit_tag("Add to Cart") %>
-<% end %>
-<%end%>
+<section>
+  <% if @product.stock == 0  %>
+  <p>Out of Stock</p>
+  <% else %>
 
-
+          <% if @current_user.products.include? @product %>
+          <%= link_to 'Edit this product', edit_product_path(@product.id)%>
+          <%else%>
+          <%= form_tag({controller: "orders", action: "add_product"}, method: "post") do %>
+              <%= hidden_field_tag :product_id, @product.id %>
+              <%= hidden_field_tag :order_id, @cart.id %>
+              <%= label_tag "Quantity:" %>
+              <%= number_field_tag :quantity, 1 %>
+              <%= submit_tag("Add to Cart") %>
+          <% end %>
+          <%end%>
+  <%end %>
+</section>
 <%= link_to "Review this fluff.", new_product_review_path(@product) %>
