@@ -50,7 +50,7 @@ class OrdersController < ApplicationController
     def add_product # passed in from product view
         prev_item = ProductOrder.find_by(product_params)
         if prev_item
-            flash[:result_text] = "Added #{product_params[:quantity]} more #{Product.find_by(id: roduct_params[:product_id])} to cart"
+            flash[:result_text] = "Added #{product_params[:quantity]} more #{Product.find_by(id: product_params[:product_id])} to cart"
             prev_item.quantity += product_params[:quantity].to_i
             prev_item.save!
             redirect_to product_path(prev_item.product_id)
