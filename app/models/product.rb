@@ -1,4 +1,8 @@
 class Product < ApplicationRecord
+<<<<<<< HEAD
+=======
+
+>>>>>>> browseProducts
     validates :stock, presence: true, numericality: { only_integer: true, allow_nil: true }
     validates :name, presence: true
     validates :price, presence: true, numericality: { greater_than: 0 }

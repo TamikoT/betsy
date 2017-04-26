@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     delete '/products/:id/removecategory', to: 'products#remove_category', as: 'remove_category'
     get '/auth/:provider/callback', to: 'sessions#create', as: 'auth_callback'
 
+
+
     get 'login', to: 'sessions#new', as: 'login'
     post 'login', to: 'sessions#login'
     post 'logout', to: 'sessions#logout', as: 'logout'
