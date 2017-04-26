@@ -15,4 +15,16 @@ class User < ApplicationRecord
         user.oauth_provider = 'github'
         user
     end
+
+    def total_earnings(user)
+        total_earnings = 0
+        user.products.each do |product|
+            product.orders.each do |order|
+                if order.status == 'complete'
+                    total_earnings += product.price * ProductOrder.find_by(order_id: order.id, product_id: product.id).quantity
+                end
+            end
+        end
+        sprintf('%.2f', total_earnings)
+    end
 end

@@ -9,12 +9,13 @@
 <section>
   <ul>
     <li>Price: <%= @product.price %></li>
+    <li>Quantity: <%= @product.stock %>
     <li>Sold by: <%= @product.user.username %></li>
     <li>Status: <%= @product.status %></li>
     <!-- T_T under the assumption that a category belongs to a product -->
     <li>
       Category: <% @product.categories.each do |category|%>
-      <%= link_to category.name, category_products_path(category.id) %>
+      <%= link_to category.name, category_products_path(category.id) %><br>
       <% end %>
     </li>
   </ul>
