@@ -16,4 +16,12 @@ two:
   price: 1.5
   user_id: 1
   photo: MyString
-  status: false
+  status: true
+
+  # three:
+  #     stock: 1
+  #     name: MyString
+  #     price: 1.5
+  #     user_id: 1
+  #     photo: MyString
+  #     status: false

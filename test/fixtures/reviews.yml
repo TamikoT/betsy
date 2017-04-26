@@ -9,3 +9,8 @@ two:
   rating: 1.5
   comment: MyString
   product: two
+
+three:
+  rating: 1.5
+  comment: MyString
+  product: two

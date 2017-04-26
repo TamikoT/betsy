@@ -9,7 +9,7 @@ describe User do
     end
   end
 
-  it "does not save an invalid the user" do
+  it "does not save an invalid user" do
     user.wont_be :valid?
   end
 
@@ -35,7 +35,7 @@ describe User do
     end
   end
 
-  describe "associations test" do
+  describe "association test" do
     it "#products" do
       assert_equal 2, users(:user1).products.size
     end
@@ -52,6 +52,8 @@ describe User do
       assert_equal 2, users(:user1).reviews.size
     end
   end
+
+  #TODO: self.from_github test
 end
 
 
