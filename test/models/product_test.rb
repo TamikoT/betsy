@@ -57,7 +57,7 @@ describe Product do
     it "Product can have many orders (through product orders)" do
       skip
       #FIXME: Not functioning
-      # assert_operator 1, :<, products(:one).orders.size
+      assert_operator 1, :<, products(:one).orders.size
     end
 
     it "Product can have many product categories" do
