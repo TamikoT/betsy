@@ -14,5 +14,8 @@ describe ProductCategory do
       assert_equal 1, product_category(:one).category
     end
 
+    it "#product" do
+      assert_equal 1, product_category(:one).productc
+    end
   end
 end
