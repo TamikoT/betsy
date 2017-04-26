@@ -2,13 +2,12 @@ Rails.application.routes.draw do
     root 'home#index'
 
     resources :users, except: [:edit, :update, :destroy]
-    resources :orders, except: [:edit, :update, :destroy]
+    resources :orders, except: [:destroy]
     resources :reviews, only: [:show, :edit, :update, :destroy]
 
     resources :products, except: [:destroy] do
         resources :reviews, only: [:new, :create, :new]
     end
-
 
     resources :categories, only: [:new, :create, :show] do
         get '/products', to: 'products#index'
@@ -24,4 +23,7 @@ Rails.application.routes.draw do
 
     post 'products/:id/cart', to: 'orders#add_product', as: 'add_to_cart'
     post 'orders/:id/update', to: 'orders#update_quantity'
+
+    delete '/orders/:id/remove', to: 'orders#remove_product'
+    delete '/orders/:id/remove', to: 'orders#remove_product'
 end
