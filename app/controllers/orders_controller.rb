@@ -54,11 +54,21 @@ class OrdersController < ApplicationController
         redirect_to order_path
     end
 
+    def remove_product
+        old_line_item = ProductOrder.find_by_id(params[:item_id].to_i)
+        old_line_item.destroy!
+
+        redirect_to order_path
+    end
+
     def update_quantity
         line_item = ProductOrder.find_by_id(params[:item_id].to_i)
         line_item.quantity = params[:quantity].to_i
-        line_item.save!
-
+        if line_item.quantity == 0
+            line_item.destroy!
+        else
+            line_item.save!
+        end
         redirect_to order_path
     end
 
@@ -88,6 +98,4 @@ class OrdersController < ApplicationController
         end
         items
     end
-
-    def subtotal; end
 end
