@@ -67,7 +67,7 @@ class OrdersController < ApplicationController
         if line_item.quantity == 0
             line_item.destroy!
         else
-            line_item.save!
+          line_item.save!
         end
         redirect_to order_path
     end
