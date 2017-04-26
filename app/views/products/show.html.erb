@@ -54,13 +54,13 @@
   <% else %>
 
           <% if @current_user.products.include? @product %>
-          <%= link_to 'Edit this product', edit_product_path(@product.id)%>
+        <%= link_to 'Edit this product', edit_product_path(@product.id)%>
           <%else%>
           <%= form_tag({controller: "orders", action: "add_product"}, method: "post") do %>
               <%= hidden_field_tag :product_id, @product.id %>
               <%= hidden_field_tag :order_id, @cart.id %>
-              <%= label_tag "Quantity:" %>
-              <%= select_tag "Quantity", options_for_select( (1.."#{@product.stock}".to_i).map  ) %>
+              <%= label_tag "quantity" %>
+              <%= select_tag :quantity, options_for_select( (1..@product.stock).map  ) %>
               <%= submit_tag("Add to Cart") %>
           <% end %>
           <%end%>
