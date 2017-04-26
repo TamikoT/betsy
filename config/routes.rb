@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     post '/products/:id/addcategory', to: 'products#add_category', as: 'add_category'
     get '/auth/:provider/callback', to: 'sessions#create'
 
+
+
     get 'login', to: 'sessions#new', as: 'login'
     post 'login', to: 'sessions#login'
     post 'logout', to: 'sessions#logout', as: 'logout'

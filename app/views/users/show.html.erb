@@ -11,6 +11,7 @@
       <th>Photo</th>
       <th>Name</th>
       <th>Categories</th>
+      <th>Status</th>
       <th>Price</th>
     </tr>
   </thead>
@@ -18,15 +19,29 @@
     <% @user.products.each do |product| %>
     <tr>
       <td> <%= image_tag product.photo %> </td>
+
       <td><%= link_to product.name, product_path %></td>
+
       <td>
         <% product.categories.each do |category| %>
         <%= link_to category.name, category_products_path(category.id) %><br>
         <% end %>
         <%= collection_select(:category, :id, Category.all, :id, :name, {prompt: 'Select Category'}, onchange: "this.form.submit();") %>
+
         <%= link_to 'Add new category', add_category_path(product.id, :category => @chosen_category), :method => :post%>
       </td>
+
+      <td>
+          <%= product.status %>
+        <%= form_for product, :url => { :action => "update", :controller => "products" , :id => product.id } do |f| %>
+        <%= f.check_box :status, :onclick => "this.form.submit();" %>
+        <% end %>
+
+      </td>
+
+
       <td><%= "#{'%.2f' % product.price}" %></td>
+
     </tr>
     <% end %>
 
