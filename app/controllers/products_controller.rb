@@ -19,25 +19,13 @@ class ProductsController < ApplicationController
         @product.status = true
 
         if @product.save
-            flash[:notice] = 'product was successfully created.'
+            flash[:notice] = 'Product was successfully created.'
         else
             flash[:notice] = 'Error creating product'
             flash[:messages] = @product.errors.messages
         end
 
         redirect_to user_path(@current_user)
-    end
-
-    def new
-        @product = Product.new
-    end
-
-    def edit
-        @product = Product.find(params[:id])
-    end
-
-    def show
-        @product = Product.find_by(id: params[:id])
     end
 
     def update
@@ -78,8 +66,22 @@ class ProductsController < ApplicationController
 
     private
 
+    def new
+        @product = Product.new
+    end
+
+    def edit
+        @product = Product.find(params[:id])
+    end
+
+    def show
+        @product = Product.find_by(id: params[:id])
+    end
+
+    private
+
     def product_params
-        params.require(:product).permit(:stock, :name, :photo, :description, :price)
+        params.require(:product).permit(:stock, :name, :photo, :description, :price, :status)
         # Did not add photos to product_params.
     end
 end

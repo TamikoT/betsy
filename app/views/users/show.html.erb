@@ -14,6 +14,7 @@ Total Earnings: $<%= @user.total_earnings(@user)%>
       <th>Photo</th>
       <th>Name</th>
       <th>Categories</th>
+      <th>Status</th>
       <th>Price</th>
     </tr>
   </thead>
@@ -21,11 +22,13 @@ Total Earnings: $<%= @user.total_earnings(@user)%>
     <% @user.products.each do |product| %>
     <tr>
       <td> <%= image_tag product.photo %> </td>
+
       <td><%= link_to product.name, product_path(product.id) %>
         <% if @current_user.products.include? product %>
         oo <%= link_to 'Edit this product', edit_product_path(product.id)%>
         <%end%>
       </td>
+
       <td>
         <% product.categories.each do |category| %>
         <%= link_to category.name, category_products_path(category.id) %>
@@ -46,6 +49,16 @@ Total Earnings: $<%= @user.total_earnings(@user)%>
       <%end%>
 
       </td>
+
+      <td>
+        <%= product.status %>
+        <%= form_for product, :url => { :action => "update", :controller => "products" , :id => product.id } do |f| %>
+        <%= f.check_box :status, :onclick => "this.form.submit();" %>
+        <% end %>
+
+      </td>
+
+
       <td><%= "#{'%.2f' % product.price}" %></td>
 
     </tr>
