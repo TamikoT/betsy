@@ -10,10 +10,10 @@ describe UserOrder do
   end
 
   describe "association test" do
-    it "Product has one user" do
+    it "Product order has one user" do
       assert_equal 1, user_orders(:one).user_id
     end
-    it "Product has one order" do
+    it "Product order has one order" do
       assert_equal 1, user_orders(:one).order_id
     end
   end
