@@ -21,9 +21,15 @@ class OrdersController < ApplicationController
     @items = cart_quantity
   end
 
-  def add_product # passed in from product view
-    new_line_item = ProductOrder.new(product_params)
-    new_line_item.save!
+  def add_product # passed in from product#show view
+  prev_item = ProductOrder.find_by(product_id: product_params[:product_id], order_id: product_params[:order_id])
+
+    if prev_item
+      prev_item.quantity += product_params[:quantity].to_i
+      prev_item.save!
+    else
+      ProductOrder.create!(product_params)
+    end
 
     redirect_to order_path
   end
