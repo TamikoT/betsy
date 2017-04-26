@@ -1,0 +1,23 @@
+<h1> All Products </h1>
+
+<h4>Sort by category</h4>
+<ol>
+<% @categories.each do |category| %>
+<li><%= link_to "#{category.name}", category_products_path(category.id)%></li>
+<%end%>
+</ol>
+
+<h4>Sort by Merchant</h4>
+<ol>
+<% @merchants.each do |merchant| %>
+<% unless merchant.products.empty? %>
+<li><%= link_to "#{merchant.username}", user_products_path(merchant.id)%></li>
+<%end%>
+<%end%>
+</ol>
+
+<ul>
+<% @products.each do |item|%>
+<li><%= link_to "#{item.name} Cost: #{item.price}", product_path(item.id) %></li>
+<%end%>
+</ul>

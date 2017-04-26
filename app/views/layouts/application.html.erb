@@ -9,23 +9,8 @@
   </head>
 
   <body>
+  <%= render "layouts/header" %>
 
-    <header>
-<nav>
-    <h1><%= link_to 'Mother Fuffer', root_path %></h1>
-    <h2> You fuffing fuffer</h2>
-
-    <section>
-  <% if @current_user %>
-    Fluffed in as <%= link_to "#{@current_user.username}", user_path(session[:user_id])%>
-    <%= link_to "Logout", logout_path, method: :logout%>
-    <%else%>
-    Not Fluffed in
-    <%= link_to "Login", login_path%>
-    <%end%>
-  </section>
-</nav>
-</header>
 
 <main>
 <section class='flash'>
