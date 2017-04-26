@@ -47,19 +47,19 @@ class OrdersController < ApplicationController
         end
     end
 
-    # T_T passed in from product/show view
-    def add_product
-      prev_item = ProductOrder.find_by(product_id: product_params[:product_id], order_id: product_params[:order_id])
-
-      # T_T will increase qty if item exists in cart already
-      if prev_item
-        prev_item.quantity += product_params[:quantity].to_i
-        prev_item.save!
-      else
-        ProductOrder.create!(product_params)
-      end
-
-      redirect_to order_path
+    def add_product # passed in from product view
+        prev_item = ProductOrder.find_by(product_params)
+        if prev_item
+            flash[:result_text] = "Added #{product_params[:quantity]} more #{Product.find_by(id: roduct_params[:product_id])} to cart"
+            prev_item.quantity += product_params[:quantity].to_i
+            prev_item.save!
+            redirect_to product_path(prev_item.product_id)
+        else
+            flash[:status] = :success
+            flash[:result_text] = "Successfluffy added #{Product.find_by(id: roduct_params[:product_id])} to cart"
+            ProductOrder.create!(product_params)
+            redirect_to order_path
+        end
     end
 
     def remove_product
@@ -75,9 +75,9 @@ class OrdersController < ApplicationController
 
         # T_T removes product from cart when qty is updated to 0
         if line_item.quantity == 0
-          line_item.destroy!
+            line_item.destroy!
         else
-          line_item.save!
+            line_item.save!
         end
         redirect_to order_path
     end
