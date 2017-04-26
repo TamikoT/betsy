@@ -8,8 +8,8 @@
     <table>
       <thead>
         <tr>
-          <th>Name</th>
-          <th width="400">Quantity</th>
+          <th width=350>Name</th>
+          <th width=250>Quantity</th>
           <th>Price</th>
           <th>Subtotal</th>
           <th>Remove</th>
@@ -29,18 +29,22 @@
       <tbody>
         <% @order.product_orders.each do |item| %>
         <tr>
-          <td><%= Product.find_by_id(item.product_id).name %> </td>
+          <td><%=link_to "#{Product.find_by_id(item.product_id).name}", product_path(item.product_id) %> </td>
 
           <td>
           <%= form_tag({controller: "orders", action: "update_quantity"}, method: "post") do %>
-            <div class="medium-6 columns"><%= number_field_tag :quantity, item.quantity, class: "text-center" %></div>
+            <div class="medium-8 columns"><%= number_field_tag :quantity, item.quantity, class: "text-center" %></div>
             <%= hidden_field_tag :item_id, item.id %>
             <%= submit_tag "Update", class: "small button" %>
           <% end %>
           </td>
-          <td>$ <%= Product.find_by_id(item.product_id).price %> ea.</td>
+          <td class="text-right">$ <%= Product.find_by_id(item.product_id).price %> ea.</td>
+
           <!-- subtotal for the item based on the unit price and quantity -->
-          <td>$ <%= item.quantity * Product.find_by_id(item.product_id).price %></td>
+          <td class="text-right">$
+            <%= "#{'%.2f' % (item.quantity * Product.find_by_id(item.product_id).price)}" %>
+          </td>
+
           <td>
           <%= form_tag({controller: "orders", action: "update_quantity"}, method: "post") do %>
             <%= hidden_field_tag :quantity, 0 %>

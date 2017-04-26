@@ -18,23 +18,12 @@
       <%= link_to category.name, category_products_path(category.id) %><br>
       <% end %>
     </li>
+    <li>Description: <%= @product.description %></l1>
   </ul>
 </section>
 
-<div>
-  <% if @current_user %>
-  <p>You own this fluff!</p>
-  <% else %>
-  <!-- T_T needs real link s-->
-  <button>Add to cart</button>
-  <% end %>
-</div>
-
 <section>
   <h4>Reviews</h4>
-
-
-
 
   <article>
     <% if @product.reviews == 0 %>
@@ -58,6 +47,9 @@
 <%end%>
 </section>
 
+<% if @current_user.products.include? @product %>
+<%= link_to 'Edit this product', edit_product_path(@product.id)%>
+<%else%>
 <%= form_tag({controller: "orders", action: "add_product"}, method: "post") do %>
     <%= hidden_field_tag :product_id, @product.id %>
     <%= hidden_field_tag :order_id, @cart.id %>
@@ -65,6 +57,7 @@
     <%= number_field_tag :quantity, 1 %>
     <%= submit_tag("Add to Cart") %>
 <% end %>
+<%end%>
 
 
 <%= link_to "Review this fluff.", new_product_review_path(@product) %>

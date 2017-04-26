@@ -7,6 +7,15 @@
 <%end%>
 </ol>
 
+<h4>Sort by Merchant</h4>
+<ol>
+<% @merchants.each do |merchant| %>
+<% unless merchant.products.empty? %>
+<li><%= link_to "#{merchant.username}", user_products_path(merchant.id)%></li>
+<%end%>
+<%end%>
+</ol>
+
 <ul>
 <% @products.each do |item|%>
 <li><%= link_to "#{item.name} Cost: #{item.price}", product_path(item.id) %></li>

@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
     root 'home#index'
 
-    resources :users, except: [:edit, :update, :destroy]
+    resources :users, except: [:edit, :update, :destroy] do
+        resources :products, only: [:index, :edit, :update]
+        get '/orders', to: 'order#index'
+    end
     resources :orders, except: [:destroy]
     resources :reviews, only: [:show, :edit, :update, :destroy]
 
@@ -15,7 +18,9 @@ Rails.application.routes.draw do
 
     post '/products/:id/addcategory', to: 'products#add_category'
     delete '/products/:id/removecategory', to: 'products#remove_category', as: 'remove_category'
-    get '/auth/:provider/callback', to: 'sessions#create'
+    get '/auth/:provider/callback', to: 'sessions#create', as: 'auth_callback'
+
+
 
     get 'login', to: 'sessions#new', as: 'login'
     post 'login', to: 'sessions#login'

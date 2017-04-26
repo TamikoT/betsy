@@ -1,46 +1,46 @@
 class ProductsController < ApplicationController
-
-  before_action :require_login, :only => [:create, :new]
+    before_action :require_login, only: [:create, :new]
 
     def index
         @categories = Category.all
+        @merchants = User.all
         if params[:category_id]
             @products = Product.includes(:product_categories).where(product_categories: { category_id: params[:category_id] })
+        elsif params[:user_id]
+            @products = User.find_by(id: params[:user_id]).products
         else
             @products = Product.all
         end
     end
 
     def create
-      @product = Product.new(product_params)
-      @product.user_id = @current_user.id
-      @product.status = true
+        @product = Product.new(product_params)
+        @product.user_id = @current_user.id
+        @product.status = true
 
-      if @product.save
-       flash[:notice] = 'product was successfully created.'
-      else
-       flash[:notice] = "Error creating product"
-       flash[:messages] = @product.errors.messages
-      end
+        if @product.save
+            flash[:notice] = 'Product was successfully created.'
+        else
+            flash[:notice] = 'Error creating product'
+            flash[:messages] = @product.errors.messages
+        end
 
-      redirect_to user_path(@current_user)
-    end
-
-    def new
-        @product = Product.new
-    end
-
-    def edit
-        @product = Product.find(params[:id])
-    end
-
-    def show
-        @product = Product.find_by(id: params[:id])
+        redirect_to user_path(@current_user)
     end
 
     def update
-        product = Product.find(params[:id])
-        product.update(product_params)
+        @product = Product.find(params[:id])
+        @product.update(product_params)
+        if @product.save
+            flash[:status] = :success
+            flash[:result_text] = "Updated #{@product.name}"
+            redirect_to user_path(@current_user.id)
+        else
+            flash[:status] = :failure
+            flash[:result_text] = "Unable to edit #{@product.name}"
+            flash[:messages] = @product.errors.messages
+            render 'edit'
+        end
     end
 
     def add_category
@@ -66,8 +66,22 @@ class ProductsController < ApplicationController
 
     private
 
+    def new
+        @product = Product.new
+    end
+
+    def edit
+        @product = Product.find(params[:id])
+    end
+
+    def show
+        @product = Product.find_by(id: params[:id])
+    end
+
+    private
+
     def product_params
-        params.require(:product).permit(:stock, :name, :photo, :description, :price)
+        params.require(:product).permit(:stock, :name, :photo, :description, :price, :status)
         # Did not add photos to product_params.
     end
 end

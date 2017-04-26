@@ -48,10 +48,18 @@ class OrdersController < ApplicationController
     end
 
     def add_product # passed in from product view
-        new_line_item = ProductOrder.new(product_params)
-        new_line_item.save!
-
-        redirect_to order_path
+        prev_item = ProductOrder.find_by(product_params)
+        if prev_item
+            flash[:result_text] = "Added #{product_params[:quantity]} more #{Product.find_by(id: roduct_params[:product_id])} to cart"
+            prev_item.quantity += product_params[:quantity].to_i
+            prev_item.save!
+            redirect_to product_path(prev_item.product_id)
+        else
+            flash[:status] = :success
+            flash[:result_text] = "Successfluffy added #{Product.find_by(id: roduct_params[:product_id])} to cart"
+            ProductOrder.create!(product_params)
+            redirect_to order_path
+        end
     end
 
     def remove_product
@@ -64,6 +72,8 @@ class OrdersController < ApplicationController
     def update_quantity
         line_item = ProductOrder.find_by_id(params[:item_id].to_i)
         line_item.quantity = params[:quantity].to_i
+
+        # T_T removes product from cart when qty is updated to 0
         if line_item.quantity == 0
             line_item.destroy!
         else
