@@ -18,14 +18,4 @@ describe Product do
     assert_equal(user.name, "Audrey")
   end
 
-
-  validates :status, presence: true
-  validates :stock, presence: true
-  validates :name, presence: true
-  validates :price, presence: true
-  validates :user_id, presence: true
-
-
-
-
 end
