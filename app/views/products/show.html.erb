@@ -71,6 +71,7 @@
   </table>
 
   <article>
+    <!-- owner cannot review own product -->
     <% if @current_user.products.include? @product %>
       <p>You can't review your own fluff.</p>
     <!-- for products with no reviews -->
