@@ -1,5 +1,13 @@
 <h1> Edit User Form </h1>
 
+<% if @product.errors.any? %>
+<ul>
+  <% @product.errors.each do |attribute, message| %>
+    <li><%= attribute.capitalize %> <%= message %></li>
+  <% end %>
+</ul>
+<% end %>
+
 <%= render partial: "form"%>
 
 

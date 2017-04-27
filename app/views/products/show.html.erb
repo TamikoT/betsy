@@ -2,14 +2,21 @@
 
 <h4><%= @product.name %></h4>
 
+<% if @product.errors.any? %>
+<ul>
+  <% @product.errors.each do |attribute, message| %>
+    <li><%= attribute.capitalize %> <%= message %></li>
+  <% end %>
+</ul>
+<% end %>
+
 <div class="product-photo">
   <%= image_tag url="#{@product.photo}" %>
 </div>
 
 <section>
   <ul>
-    <li>Price: $ <%= @product.price %></li>
-    <li>Description: <%= @product.description %></l1>
+    <li>Price: <%= @product.price %></li>
     <li>
       Category: <% @product.categories.each do |category|%>
       <%= link_to category.name, category_products_path(category.id) %><br>
@@ -21,23 +28,19 @@
 </section>
 
 <section class = "cart_section large-12 medium-12 small-12 columns">
-  <% if @product.stock == 0  %>
-    <p>Fluff is out of stock!</p>
+  <% if !(@current_user.nil?) && (@current_user.products.include? @product) %>
+    <%= link_to 'Edit this product', edit_product_path(@product.id)%>
   <% else %>
-    <% if @current_user.products.include? @product %>
-      <%= link_to 'Edit Your Fluff', edit_product_path(@product.id)%>
-    <%else%>
-    <div class="large-1 medium-2 columns">
-      <%= form_tag({controller: "orders", action: "add_product"}, method: "post") do %>
-        <%= hidden_field_tag :product_id, @product.id %>
-        <%= hidden_field_tag :order_id, @cart.id %>
-        <%= label_tag "Pieces of Fluff" %>
-        <%= select_tag :quantity, options_for_select( (1..@product.stock).map  ) %>
-        <%= submit_tag "Add to Cart", class: "button" %>
-      <% end %>
-    </div>
-    <%end%>
-  <%end %>
+  <div class="large-1 medium-2 columns">
+    <%= form_tag({controller: "orders", action: "add_product"}, method: "post") do %>
+      <%= hidden_field_tag :product_id, @product.id %>
+      <%= hidden_field_tag :order_id, @cart.id %>
+      <%= label_tag "quantity" %>
+      <%= select_tag :quantity, options_for_select( (1..@product.stock).map  ) %>
+      <%= submit_tag("Add to Cart") %>
+    <% end %>
+  </div>
+  <% end %>
 </section>
 
 <section class = "review-section">
@@ -62,12 +65,16 @@
     </tbody>
   </table>
 
-  <artcle>
+  <article>
     <!-- for products with no reviews -->
     <% if @product.reviews.empty? %>
       <p>Unrated fluff. <%= link_to "Be the first to review this fluff!", new_product_review_path(@product) %></p>
     <% else %>
-      <%= link_to "Review this Fluff", new_product_review_path(@product) %>
+      <% if @current_user.products.include? @product %>
+        <p>You can't review your own fluff!</p>
+      <% else %>
+        <%= link_to "Review this Fluff", new_product_review_path(@product) %>
+      <%end%>
     <%end%>
-  </artcle>
+  </article>
 </section>
