@@ -10,18 +10,21 @@ describe Review do
   end
 
   describe "validation tests" do
-    it "new review can not be created without a rating" do
+    # required test (1/3)
+    it "Rating must be present" do
       proc { review.save! }.must_raise ("A review must have a rating.")
       review.errors.must_include(:rating)
     end
 
-    it "rating must be a number" do
+    # required test (2/3)
+    it "Rating must be an Integer" do
       review[:rating] = "string"
       review.save
 
       review.wont_be :valid?
     end
 
+    # required test (3/3)
     it "rating must be a number between 1 and 5" do
       review[:rating] = 7
       review.save

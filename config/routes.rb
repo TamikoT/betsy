@@ -29,5 +29,6 @@ Rails.application.routes.draw do
     post 'orders/:id/update', to: 'orders#update_quantity'
 
     delete '/orders/:id/remove', to: 'orders#remove_product'
-    delete '/orders/:id/remove', to: 'orders#remove_product'
+
+    get 'checkout/confirmation', to: 'orders#confirm', as: 'confirmation'
 end

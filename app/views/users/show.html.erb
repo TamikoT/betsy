@@ -49,11 +49,10 @@ Total Earnings: $<%= @total_earnings %>
         <% end %>
       </div>
 
-
       </td>
 
       <td>
-        <%= product.status %>
+        <%#= product.status %>
         <%= form_for product, :url => { :action => "update", :controller => "products" , :id => product.id } do |f| %>
         <%= f.label :status, "Retired" if :status == false %>
         <%= f.check_box :status, :onclick => "this.form.submit();" %>
@@ -61,7 +60,6 @@ Total Earnings: $<%= @total_earnings %>
 
       </td>
       <%end%>
-
 
       <td><%= "#{'%.2f' % product.price}" %></td>
 

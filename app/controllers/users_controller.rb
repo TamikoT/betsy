@@ -47,8 +47,6 @@ class UsersController < ApplicationController
         sprintf('%.2f', total_earnings)
     end
 
-    helper_method :total_earnings
-
     # ~~~~~~~~~~~~~~~~~~~~~~~~ooooooooooooooooooooooo~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     private

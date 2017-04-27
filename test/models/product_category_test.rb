@@ -8,4 +8,14 @@ describe ProductCategory do
       value(product_category).must_be :valid?
     end
   end
+
+  describe "validation tests" do
+    it "#category" do
+      assert_equal 1, product_category(:one).category
+    end
+
+    it "#product" do
+      assert_equal 1, product_category(:one).productc
+    end
+  end
 end
