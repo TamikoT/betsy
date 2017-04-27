@@ -1,5 +1,13 @@
 <h1>Checkout</h1>
-<%= p @order.id %>
+
+<% if @order.errors.any? %>
+<ul>
+  <% @order.errors.each do |attribute, message| %>
+    <li><%= attribute.capitalize %> <%= message %></li>
+  <% end %>
+</ul>
+<% end %>
+
 <section>
   <%= form_for @order do |f| %>
 
