@@ -2,6 +2,15 @@
 
 <h4>Order #0<%= @order.id %></h4>
 
+<section>
+  <p>
+    <%= @order.created_at %>
+  </p>
+  <p>
+    <%= "Status: " + @order.status %>
+  </p>
+</section>
+
 <div class="table-scroll">
   <table>
     <thead>
