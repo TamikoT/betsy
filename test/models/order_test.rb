@@ -9,6 +9,10 @@ describe Order do
     end
   end
 
+  # required test (1/1)
+  it "has one or more productorders for a 'paid' order" do
+  end
+
   describe "validation tests" do
     it  "new order can not be created without a status" do
       proc { order.save! }.must_raise ("An order must have a status.")
@@ -32,6 +36,7 @@ describe Order do
     end
   end
 end
+
 
 # describe "associations test" do
 #   it "#product_categories - recognizes the correct number" do
