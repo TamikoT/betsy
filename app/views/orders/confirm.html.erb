@@ -3,12 +3,29 @@
 <h4>Order #0<%= @order.id %></h4>
 
 <section>
-  <p>
-    <%= @order.created_at %>
-  </p>
-  <p>
-    <%= "Status: " + @order.status %>
-  </p>
+  <ul>
+    <li>
+      <%= @order.created_at %>
+    </li>
+    <li>
+      <%= "Status: " + @order.status %>
+    </li>
+    <li>
+      <%= "Name: " + @order.card_name %>
+      <p>
+        <%= "Mailing Address: " + @order.mailing_address %>
+      </p>
+      <p>
+        <%= "Mailing Address: " + @order.mailing_address %>
+      </p>
+    </li>
+    <li>
+      <%= "Email: " + @order.email_address %>
+    </li>
+    <li>
+      <%= "Last 4 of Credit Card: " + "#{@order.card_cvv}" %>
+    </li>
+  </ul>
 </section>
 
 <div class="table-scroll">
