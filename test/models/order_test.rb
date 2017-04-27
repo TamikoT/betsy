@@ -10,7 +10,7 @@ describe Order do
   end
 
   # required test (1/1)
-  it "has one or more productorders" do
+  it "has one or more productorders for a 'paid' order" do
   end
 
   describe "validation tests" do
