@@ -26,20 +26,35 @@ describe Product do
       products(:two).must_be :invalid?
     end
 
+    # required test (1/6)
     it "product can not be created without name" do
       products(:two)[:name] = nil
 
       products(:two).must_be :invalid?
     end
 
+    # required test (2/6)
+    it "Name must be unique" do
+    end
+
+    # required test (3/6)
     it "product can not be created without valid price" do
       products(:two)[:price] = -2
 
       products(:two).must_be :invalid?
     end
+
+    # required test (4/6)
+    it "Price must be present" do
+    end
+
+    # required test (5/6)
+    it "Price must be greater than 0" do
+    end
   end
 
   describe "association test" do
+    # required test (6/6)
     it "Product has one user" do
       assert_equal 1, products(:one).user_id
     end
