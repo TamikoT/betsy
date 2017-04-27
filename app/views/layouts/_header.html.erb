@@ -15,7 +15,14 @@
         <section>
           <% if @current_user %>
           Fuffed in as <%= link_to "#{@current_user.username}", user_path(session[:user_id])%>
+
           <%= link_to "Logout", logout_path, method: :logout%>
+
+          <div>
+            <%= link_to "#{@cart_quantity} products in your cart ", order_path(session[:user_id]) %>
+
+          </div>
+
           <%else%>
           Not Fuffed in
           <%= link_to "Login", login_path%>

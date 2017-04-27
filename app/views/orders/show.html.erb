@@ -34,7 +34,7 @@
           <td>
           <%= form_tag({controller: "orders", action: "update_quantity"}, method: "post") do %>
             <div class="medium-8 columns" >
-              <%= select_tag :quantity, options_for_select( (1..item.quantity).map), class: "text-center"  %>
+              <%= select_tag :quantity, options_for_select( (1..item.quantity).map, item.quantity), class: "text-center"  %>
             </div>
             <%= hidden_field_tag :item_id, item.id %>
             <%= submit_tag "Update", class: "small button" %>

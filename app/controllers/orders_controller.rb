@@ -82,16 +82,6 @@ class OrdersController < ApplicationController
         redirect_to order_path
     end
 
-    private
-
-    def order_params
-        params.require(:order).permit(:status, :email_address, :mailing_address, :card_name, :card_expiration, :card_cvv, :zipcode)
-    end
-
-    def product_params
-        params.permit(:product_id, :quantity, :order_id)
-    end
-
     def cart_total
         sum = 0.00
         @cart.product_orders.each do |item|
@@ -108,4 +98,16 @@ class OrdersController < ApplicationController
         end
         items
     end
+
+    private
+
+    def order_params
+        params.require(:order).permit(:status, :email_address, :mailing_address, :card_name, :card_expiration, :card_cvv, :zipcode)
+    end
+
+    def product_params
+        params.permit(:product_id, :quantity, :order_id)
+    end
+
+
 end
