@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-    before_action :initialize_cart, only: [:show]
+    before_action :initialize_cart, only: [:show, :edit, :update, :confirm]
 
     def index
         @orders = Order.all
@@ -22,11 +22,11 @@ class OrdersController < ApplicationController
     end
 
     def edit
-        @order = Order.find(session[:order_id])
+        @order = @cart
     end
 
     def update
-        edit
+        @order = @cart
         @order.update(order_params)
         @order.status = 'paid'
         if @order.save
@@ -37,14 +37,22 @@ class OrdersController < ApplicationController
                 product.save
             end
 
-            session.delete(:order_id)
-            redirect_to root_path
+            redirect_to confirmation_path
         else
             flash[:result_text] = 'Unable to place order'
             flash[:messages] = @order.errors.messages
             @order.status = 'pending'
             render 'edit'
         end
+    end
+
+    def confirm
+      @order = @cart
+      @sum = cart_total
+      @items = cart_quantity
+      if @order.status == 'paid'
+        session[:order_id] = nil
+      end
     end
 
     def add_product # passed in from product view

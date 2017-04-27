@@ -1,0 +1,46 @@
+<h2>Your Receipt</h2>
+
+<h4>Order #0<%= @order.id %></h4>
+
+<div class="table-scroll">
+  <table>
+    <thead>
+      <tr>
+        <th width=350>Name</th>
+        <th width=250>Quantity</th>
+        <th>Price</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+
+    <tfoot>
+      <tr>
+        <th>Total</th>
+        <td><%= @items %> items</td>
+        <td></td>
+        <td><%= "$ #{'%.2f' % @sum}" %></td>
+      </tr>
+    </tfoot>
+
+    <tbody>
+      <% @order.product_orders.each do |item| %>
+      <tr>
+        <td><%=link_to "#{Product.find_by_id(item.product_id).name}", product_path(item.product_id) %> </td>
+
+        <td><%= item.quantity %></td>
+
+        <td class="text-right">$ <%= Product.find_by_id(item.product_id).price %> ea.</td>
+
+        <!-- subtotal for the item based on the unit price and quantity -->
+        <td class="text-right">$
+          <%= "#{'%.2f' % (item.quantity * Product.find_by_id(item.product_id).price)}" %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<p>Your fluff will be with you shortly.</p>
+
+<%= link_to "Back Home", root_path, class: "button" %>

@@ -20,8 +20,6 @@ Rails.application.routes.draw do
     delete '/products/:id/removecategory', to: 'products#remove_category', as: 'remove_category'
     get '/auth/:provider/callback', to: 'sessions#create', as: 'auth_callback'
 
-
-
     get 'login', to: 'sessions#new', as: 'login'
     post 'login', to: 'sessions#login'
     post 'logout', to: 'sessions#logout', as: 'logout'
@@ -30,5 +28,6 @@ Rails.application.routes.draw do
     post 'orders/:id/update', to: 'orders#update_quantity'
 
     delete '/orders/:id/remove', to: 'orders#remove_product'
-    delete '/orders/:id/remove', to: 'orders#remove_product'
+
+    get 'checkout/confirmation', to: 'orders#confirm', as: 'confirmation'
 end
