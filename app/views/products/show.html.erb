@@ -16,7 +16,11 @@
 
 <section>
   <ul>
-    <li>Price: <%= @product.price %></li>
+    <li>Price: $ <%= @product.price %></li>
+    <li>
+      Description: <%= @product.description %>
+    </li>
+
     <li>
       Category: <% @product.categories.each do |category|%>
       <%= link_to category.name, category_products_path(category.id) %><br>
@@ -24,12 +28,13 @@
     </li>
     <li>Sold by: <%= link_to @product.user.username, user_path(@product.user.id) %></li>
     <li>Fluff left: <%= @product.stock %>
+
   </ul>
 </section>
 
 <section class = "cart_section large-12 medium-12 small-12 columns">
   <% if !(@current_user.nil?) && (@current_user.products.include? @product) %>
-    <%= link_to 'Edit this product', edit_product_path(@product.id)%>
+    <%= link_to 'Edit your product', edit_product_path(@product.id), class: :button %>
   <% else %>
   <div class="large-1 medium-2 columns">
     <%= form_tag({controller: "orders", action: "add_product"}, method: "post") do %>
@@ -66,12 +71,11 @@
   </table>
 
   <article>
+    <% if @current_user.products.include? @product %>
+      <p>You can't review your own fluff.</p>
     <!-- for products with no reviews -->
-    <% if @product.reviews.empty? %>
-      <p>Unrated fluff. <%= link_to "Be the first to review this fluff!", new_product_review_path(@product) %></p>
-    <% else %>
-      <% if @current_user.products.include? @product %>
-        <p>You can't review your own fluff!</p>
+      <% if @product.reviews.empty? %>
+        <p>Unrated fluff. <%= link_to "Be the first to review this fluff!", new_product_review_path(@product) %></p>
       <% else %>
         <%= link_to "Review this Fluff", new_product_review_path(@product) %>
       <%end%>
