@@ -27,26 +27,32 @@
       <% end %>
     </li>
     <li>Sold by: <%= link_to @product.user.username, user_path(@product.user.id) %></li>
-    <li>Fluff left: <%= @product.stock %>
 
+    <% if @product.stock == 0 %>
+      <li>This fluff is out of stock!</li>
+    <% else %>
+      <li>Fluff left: <%= @product.stock %></li>
+    <% end %>
   </ul>
 </section>
 
-<section class = "cart_section large-12 medium-12 small-12 columns">
-  <% if !(@current_user.nil?) && (@current_user.products.include? @product) %>
-    <%= link_to 'Edit your product', edit_product_path(@product.id), class: :button %>
-  <% else %>
-  <div class="large-1 medium-2 columns">
-    <%= form_tag({controller: "orders", action: "add_product"}, method: "post") do %>
-      <%= hidden_field_tag :product_id, @product.id %>
-      <%= hidden_field_tag :order_id, @cart.id %>
-      <%= label_tag "quantity" %>
-      <%= select_tag :quantity, options_for_select( (1..@product.stock).map  ) %>
-      <%= submit_tag("Add to Cart") %>
+<% if @product.stock > 0 %>
+  <section class = "cart_section large-12 medium-12 small-12 columns">
+    <% if !(@current_user.nil?) && (@current_user.products.include? @product) %>
+      <%= link_to 'Edit your product', edit_product_path(@product.id), class: :button %>
+    <% else %>
+    <div class="large-1 medium-2 columns">
+      <%= form_tag({controller: "orders", action: "add_product"}, method: "post") do %>
+        <%= hidden_field_tag :product_id, @product.id %>
+        <%= hidden_field_tag :order_id, @cart.id %>
+        <%= label_tag "quantity" %>
+        <%= select_tag :quantity, options_for_select( (1..@product.stock).map  ) %>
+        <%= submit_tag("Add to Cart") %>
+      <% end %>
+    </div>
     <% end %>
-  </div>
-  <% end %>
-</section>
+  </section>
+<% end %>
 
 <section class = "review-section">
   <h4>Reviews</h4>
