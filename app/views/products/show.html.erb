@@ -9,41 +9,55 @@
 <section>
   <ul>
     <li>Price: <%= @product.price %></li>
+    <li>Quantity: <%= @product.stock %>
     <li>Sold by: <%= @product.user.username %></li>
     <li>Status: <%= @product.status %></li>
     <!-- T_T under the assumption that a category belongs to a product -->
     <li>
       Category: <% @product.categories.each do |category|%>
-        <%= link_to category.name, category_products_path(category.id) %>
+      <%= link_to category.name, category_products_path(category.id) %><br>
       <% end %>
     </li>
+    <li>Description: <%= @product.description %></l1>
   </ul>
 </section>
 
-<div>
-  <% if @current_user %>
-    <p>You own this fluff!</p>
-  <% else %>
-  <!-- T_T needs real link s-->
-    <button>Add to cart</button>
-  <% end %>
-</div>
-
 <section>
   <h4>Reviews</h4>
+
   <article>
     <% if @product.reviews == 0 %>
-      <p>Unrated fluff. <%= link_to "Be the first to review!", new_review_path %></p>
+    <p>Unrated fluff. <%= link_to "Be the first to review!", new_review_path %></p>
     <% else %>
-      <!-- T_T should we style as comment card or table? -->
-      <div class=review>
-      <%= @product.reviews.each do |review| %>
-        <%= review.updated_at %>
-        Rating: <%= review.rating %>
-        Decription: <%= review.comment %>
-      <% end %>
-      </div>
-      <%= link_to "Review this fluff.", new_review_path %>
-    <% end %>
-  </article>
+
+<table>
+  <tr>
+    <th>Rating</th>
+    <th>Comment</th>
+    <th>Last Update</th>
+  </tr>
+  <% @product.reviews.each do |review| %>
+  <tr>
+    <td><%= review.rating %></td>
+    <td><%= review.comment %></td>
+    <td><%= review.updated_at %></td>
+  </tr>
+  <%end%>
+</table>
+<%end%>
 </section>
+
+<% if @current_user.products.include? @product %>
+<%= link_to 'Edit this product', edit_product_path(@product.id)%>
+<%else%>
+<%= form_tag({controller: "orders", action: "add_product"}, method: "post") do %>
+    <%= hidden_field_tag :product_id, @product.id %>
+    <%= hidden_field_tag :order_id, @cart.id %>
+    <%= label_tag "Quantity:" %>
+    <%= number_field_tag :quantity, 1 %>
+    <%= submit_tag("Add to Cart") %>
+<% end %>
+<%end%>
+
+
+<%= link_to "Review this fluff.", new_product_review_path(@product) %>

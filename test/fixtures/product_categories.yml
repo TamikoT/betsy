@@ -2,8 +2,12 @@
 
 one:
   category_id: 1
-  product_id: 1
+  product_id: 2
+  category: one
+  product: two
 
 two:
   category_id: 1
   product_id: 1
+  category: one
+  product: two

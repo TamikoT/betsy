@@ -1,7 +1,5 @@
 require "test_helper"
 
-#TODO: Need to update to so the tests utlize fixtures.
-
 describe Category do
   let(:category) { Category.new }
 
@@ -11,22 +9,24 @@ describe Category do
     end
   end
 
-  it "will not create new category without unique name" do
-    category_copy = category.dup
-    proc { category_copy.save! }.must_raise("Category name must be unique.")
-    category_copy.errors.must_include(:name)
+  describe "validation tests" do
+    it "new category can not be created a without unique name" do
+      proc { category.save! }.must_raise("Category name must be unique.")
+      category.errors.must_include(:name)
+    end
+
+    it "new category can be created with a unique name" do
+      # TODO: Add fixture
+      category[:name] = "unique"
+      category.save
+
+      category.must_be :valid?
+    end
   end
 
-  it "will create a new category with a unique name" do
-    category[:name] = "unique"
-    category.save
-
-    category.wont_be_nil
+  describe "association test" do
+    it "#product_categories - a category can have multiple product categories" do
+      assert_equal 2, categories(:one).product_categories.size
+    end
   end
 end
-
-# it 'must have unique pin' do
-#   person_copy = person.dup
-#   proc { person_copy.save! }.must_raise(Mongoid::Errors::Validations)
-#   person_copy.errors.must_include(:pin)
-# end

@@ -7,6 +7,8 @@ class User < ApplicationRecord
     has_many :orders, through: :user_orders
     has_many :reviews, through: :products
 
+    accepts_nested_attributes_for :products
+
     def self.from_github(auth_hash)
         user = User.new
         user.username = auth_hash['info']['nickname']
@@ -14,5 +16,17 @@ class User < ApplicationRecord
         user.oauth_uid = auth_hash['uid']
         user.oauth_provider = 'github'
         user
+    end
+
+    def total_earnings(user)
+        total_earnings = 0
+        user.products.each do |product|
+            product.orders.each do |order|
+                if order.status == 'complete'
+                    total_earnings += product.price * ProductOrder.find_by(order_id: order.id, product_id: product.id).quantity
+                end
+            end
+        end
+        sprintf('%.2f', total_earnings)
     end
 end

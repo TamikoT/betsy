@@ -2,13 +2,19 @@
 
 
 <h4>Products</h4>
+<%= link_to "Create New Category", new_category_path %>
+<%= link_to "Create New Product", new_product_path %>
 
+<% if @current_user == @user %>
+Total Earnings: $<%= @user.total_earnings(@user)%>
+<%end%>
 <table>
   <thead>
     <tr>
       <th>Photo</th>
       <th>Name</th>
       <th>Categories</th>
+      <th>Status</th>
       <th>Price</th>
     </tr>
   </thead>
@@ -16,13 +22,45 @@
     <% @user.products.each do |product| %>
     <tr>
       <td> <%= image_tag product.photo %> </td>
-      <td><%= link_to product.name, product_path %></td>
+
+      <td><%= link_to product.name, product_path(product.id) %>
+        <% if @current_user.products.include? product %>
+        oo <%= link_to 'Edit this product', edit_product_path(product.id)%>
+        <%end%>
+      </td>
+
       <td>
         <% product.categories.each do |category| %>
-        <%= link_to category.name, category_path %><br>
+        <%= link_to category.name, category_products_path(category.id) %>
+        <% if @current_user.products.include? product%>
+          oo <%= link_to 'Remove Category', remove_category_path(product.id, :category_id => category.id), :method => :delete%>
+          <%end%>
+          <br>
         <% end %>
+
+        <% if @current_user.products.include? product%>
+        <div>
+          Select to add new category:
+        <%= form_tag({controller:'products', action: 'add_category'}, method: 'post') do %>
+        <%= hidden_field_tag :product_id, product.id %>
+        <%= collection_select(:category, :id, Category.all, :id, :name, {prompt: 'Select Category'}, onchange: "this.form.submit();") %>
+        <% end %>
+      </div>
+      <%end%>
+
       </td>
+
+      <td>
+        <%= product.status %>
+        <%= form_for product, :url => { :action => "update", :controller => "products" , :id => product.id } do |f| %>
+        <%= f.check_box :status, :onclick => "this.form.submit();" %>
+        <% end %>
+
+      </td>
+
+
       <td><%= "#{'%.2f' % product.price}" %></td>
+
     </tr>
     <% end %>
 

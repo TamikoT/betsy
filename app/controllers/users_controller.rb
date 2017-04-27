@@ -7,12 +7,15 @@ class UsersController < ApplicationController
 
     def new
         @user = User.new
+
     end
 
     def show
         @user = User.find_by(id: params[:id])
         head :not_found if @user.nil?
     end
+
+
 
     def create
         new
@@ -22,6 +25,19 @@ class UsersController < ApplicationController
         else
             render :new, status: :bad_request
         end
+    end
+
+
+    def update
+      @product = Product.find(params[:id])
+
+      if @product.update_attributes(params[:status])
+        flash[:notice] = 'product was successfully created.'
+      else
+        flash[:notice] = "Error creating product"
+        flash[:messages] = @product.errors.messages
+      end
+
     end
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~ooooooooooooooooooooooo~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

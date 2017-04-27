@@ -4,8 +4,10 @@ require "test_helper"
 describe User do
   let(:user) { User.new }
 
-  it "must be valid" do
-    value(user).must_be :valid?
+  it "all users must be be valid" do
+    users.each do |user|
+      value(user).must_be :valid?
+    end
   end
 
   it "does not save an invalid user" do
@@ -64,3 +66,10 @@ describe User do
 
   #TODO: self.from_github test
 end
+
+
+
+
+# reviews.each do |review|
+#   value(review).must_be :valid?
+# end
