@@ -9,14 +9,25 @@ describe ProductOrder do
     end
   end
   describe "validation tests" do
-    it "quantity can not be string" do
+
+    # required test (3/5)
+    it "Quantity must be present" do
+      product_order[:quantity] = 0
+      product_order.save
+
+      product_order.must_be :invalid?
+    end
+
+    # required test (4/5)
+    it "Quantity must be an integer" do
       product_order[:quantity] = "String"
       product_order.save
 
       product_order.must_be :invalid?
     end
 
-    it "quantity can not be 0" do
+    # required test (5/5)
+    it "Quantity must be greater than 0" do
       product_order[:quantity] = 0
       product_order.save
 
@@ -25,11 +36,13 @@ describe ProductOrder do
   end
 
   describe "association tests" do
-    it "#product" do
+    # required test (1/5)
+    it "Must belong to a Product" do
       assert_equal 1, product_orders(:one).product_id
     end
 
-    it "#order" do
+    # required test (2/5)
+    it "Must belong to an Order" do
       assert_equal 1, product_orders(:one).order_id
     end
   end

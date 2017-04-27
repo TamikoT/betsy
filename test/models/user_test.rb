@@ -15,7 +15,7 @@ describe User do
   end
 
   describe "validation tests" do
-    # required test
+    # required test (1/4)
     it "Username must be present" do
       user[:username] = nil
       user.save
@@ -23,7 +23,7 @@ describe User do
       user.must_be :invalid?
     end
 
-    # TODO required test
+    # TODO required test (2/4)
     it "Username must be unique" do
     end
 
@@ -33,11 +33,11 @@ describe User do
       user.must_be :invalid? #assert user.invalid?
     end
 
-    # TODO required test
+    # TODO required test (3/4)
     it "Email Address must be unique" do
     end
 
-    # required test
+    # required test (4/4)
     it "new user can be created with valid username and email" do
       user[:username] = "unique_name"
       user[:email] = "unique_name@xxxxxx.com"
