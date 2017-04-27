@@ -2,7 +2,13 @@ class OrdersController < ApplicationController
     before_action :initialize_cart, only: [:show]
 
     def index
-        @orders = Order.all
+        if params[:status]
+            @orders = Order.includes(:product_orders).where(product_orders: { product_id: Product.find_by(user_id: params[:user_id]).id }).where(status: params[:status])
+            @status_revenue = revenue_by_status(@orders, params[:user_id])
+        else
+            @orders = Order.includes(:product_orders).where(product_orders: { product_id: Product.find_by(user_id: params[:user_id]).id })
+            @status_revenue = revenue_by_status(@orders, params[:user_id])
+        end
     end
 
     def create
@@ -27,8 +33,9 @@ class OrdersController < ApplicationController
 
     def update
         edit
-        @order.update(order_params)
         @order.status = 'paid'
+        @order.update(order_params)
+
         if @order.save
             flash[:result_text] = "Your Order # #{@order.id} has been placed!"
 
@@ -41,7 +48,6 @@ class OrdersController < ApplicationController
             redirect_to root_path
         else
             flash[:result_text] = 'Unable to place order'
-            flash[:messages] = @order.errors.messages
             @order.status = 'pending'
             render 'edit'
         end
@@ -50,16 +56,23 @@ class OrdersController < ApplicationController
     def add_product # passed in from product view
         prev_item = ProductOrder.find_by(product_params)
         if prev_item
-            flash[:result_text] = "Added #{product_params[:quantity]} more #{Product.find_by(id: roduct_params[:product_id])} to cart"
+            flash[:result_text] = "Added #{product_params[:quantity]} more #{Product.find_by(id: product_params[:product_id]).name} to cart"
             prev_item.quantity += product_params[:quantity].to_i
             prev_item.save!
-            redirect_to product_path(prev_item.product_id)
         else
             flash[:status] = :success
-            flash[:result_text] = "Successfluffy added #{Product.find_by(id: roduct_params[:product_id])} to cart"
+            flash[:result_text] = "Successfluffy added #{Product.find_by(id: product_params[:product_id]).name} to cart"
             ProductOrder.create!(product_params)
-            redirect_to order_path
         end
+        redirect_to order_path
+    end
+
+    def update_status
+        @order = Order.find_by(id: params[:order_id])
+        @order.status = params[:status]
+        @order.save
+        flash[:result_text] = "Successfluffy updated Order # #{@order.id} to #{@order.status}"
+        redirect_to :back
     end
 
     def remove_product
@@ -80,6 +93,17 @@ class OrdersController < ApplicationController
             line_item.save!
         end
         redirect_to order_path
+    end
+
+    def revenue_by_status(orders, user)
+        sum = 0.00
+        orders.each do |order|
+            order.product_orders.each do |item|
+                product = Product.find_by(id: item.product_id, user_id: user)
+                sum += product.price * item.quantity
+            end
+        end
+        sprintf('%.2f', sum)
     end
 
     private

@@ -6,3 +6,9 @@
 
   <%= f.submit class: "button" %>
 <% end %>
+
+<% if @category.errors.any? %>
+  <% @category.errors.each do |attribute, message| %>
+    <%= attribute.capitalize %> <%= message %>
+  <% end %>
+<% end %>

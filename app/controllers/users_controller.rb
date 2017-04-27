@@ -7,15 +7,13 @@ class UsersController < ApplicationController
 
     def new
         @user = User.new
-
     end
 
     def show
         @user = User.find_by(id: params[:id])
         head :not_found if @user.nil?
+        @total_earnings = total_earnings(@user)
     end
-
-
 
     def create
         new
@@ -27,18 +25,29 @@ class UsersController < ApplicationController
         end
     end
 
-
     def update
-      @product = Product.find(params[:id])
+        @product = Product.find(params[:id])
 
-      if @product.update_attributes(params[:status])
-        flash[:notice] = 'product was successfully created.'
-      else
-        flash[:notice] = "Error creating product"
-        flash[:messages] = @product.errors.messages
-      end
-
+        if @product.update_attributes(params[:status])
+            flash[:notice] = 'Product was successfluffy created.'
+        else
+            flash[:notice] = 'Error creating product'
+        end
     end
+
+    def total_earnings(user)
+        total_earnings = 0
+        user.products.each do |product|
+            product.orders.each do |order|
+                if order.status == 'complete'
+                    total_earnings += product.price * ProductOrder.find_by(order_id: order.id, product_id: product.id).quantity
+                end
+            end
+        end
+        sprintf('%.2f', total_earnings)
+    end
+
+    helper_method :total_earnings
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~ooooooooooooooooooooooo~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
