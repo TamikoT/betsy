@@ -5,25 +5,31 @@
 <section>
   <ul>
     <li>
-      <%= @order.created_at %>
+      Date: <%= @order.created_at %>
     </li>
     <li>
-      <%= "Status: " + @order.status %>
+      Status: <%= @order.status %>
     </li>
     <li>
-      <%= "Name: " + @order.card_name %>
-      <p>
-        <%= "Mailing Address: " + @order.mailing_address %>
-      </p>
-      <p>
-        <%= "Mailing Address: " + @order.mailing_address %>
-      </p>
+      Name: <%= @order.card_name %>
+      <li>
+        Mailing Address: <%= @order.mailing_address %>
+      </li>
+      <li>
+        Zip Code: <%=  @order.zipcode %>
+      </li>
+      <li>
+        Credit Card: <%= @order.credit_card %>
+      </li>
     </li>
     <li>
-      <%= "Email: " + @order.email_address %>
+      Email: <%= @order.email_address %>
     </li>
     <li>
-      <%= "Last 4 of Credit Card: " + "#{@order.card_cvv}" %>
+      Last 4 of Credit Card: <%= @order.credit_card[-4..-1] %>
+    </li>
+    <li>
+      Card Expiration Date: <%= @order.card_expiration %>
     </li>
   </ul>
 </section>

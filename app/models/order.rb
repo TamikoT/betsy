@@ -6,6 +6,7 @@ class Order < ApplicationRecord
     validates :card_expiration, presence: true, if: "status == 'paid' || status == 'complete'"
     validates :card_cvv, presence: true, length: { is: 3 }, if: "status == 'paid' || status == 'complete'"
     validates :zipcode, presence: true, length: { is: 5 }, if: "status == 'paid' || status == 'complete'"
+    validates :credit_card, presence: true, format: { with: /\A(^4[0-9]{12}(?:[0-9]{3})?$)|(^5[1-5][0-9]{14}$)\z/ }, if: "status == 'paid' || status == 'complete'"
 
     has_many :product_orders
     has_many :products, through: :product_orders
