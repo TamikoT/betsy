@@ -64,8 +64,6 @@ class ProductsController < ApplicationController
         redirect_to user_path(@current_user)
     end
 
-    
-
     def new
         @product = Product.new
     end

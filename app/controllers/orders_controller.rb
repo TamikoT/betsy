@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
-  before_action :initialize_cart, only: [:show]
+
+  before_action :initialize_cart, only: [:show, :edit, :update, :confirm]
 
   def index
     @orders = Order.all
@@ -19,27 +20,16 @@ class OrdersController < ApplicationController
     @order = @cart # in ApplicationController
     @sum = cart_total
     @items = cart_quantity
-    # raise #FIXME: Last raise position
-    if @order.status == 'paid'
-      # session.delete(:order_id)
-      # delete_order_id
-      # redirect_to root_path, flash: { user_id: nil }
-    end
   end
 
-  # def delete_order_id
-  #   session[:user_id] = nil
-  # end
-
   def edit
-    @order = Order.find(session[:order_id])
+    @order = @cart
   end
 
   def update
-    # raise
-    edit
+    @order = @cart
     @order.update(order_params)
-    # @order.status = 'paid'
+    @order.status = 'paid'
     if @order.save
       flash[:result_text] = "Your Order # #{@order.id} has been placed!"
 
@@ -48,13 +38,28 @@ class OrdersController < ApplicationController
         product.save
       end
 
-
       redirect_to confirmation_path
     else
       flash[:result_text] = 'Unable to place order'
       flash[:messages] = @order.errors.messages
       @order.status = 'pending'
       render 'edit'
+    end
+  end
+
+  def remove_product
+    old_line_item = ProductOrder.find_by_id(params[:item_id].to_i)
+    old_line_item.destroy!
+
+    redirct_to order_path
+  end
+
+  def confirm
+    @order = @cart
+    @sum = cart_total
+    @items = cart_quantity
+    if @order.status == 'paid'
+      session[:order_id] = nil
     end
   end
 
@@ -71,13 +76,6 @@ class OrdersController < ApplicationController
       ProductOrder.create!(product_params)
       redirect_to order_path
     end
-  end
-
-  def remove_product
-    old_line_item = ProductOrder.find_by_id(params[:item_id].to_i)
-    old_line_item.destroy!
-
-    redirect_to order_path
   end
 
   def update_quantity
