@@ -24,7 +24,6 @@ Rails.application.routes.draw do
     post 'login', to: 'sessions#login'
     post 'logout', to: 'sessions#logout', as: 'logout'
 
-    get 'orders/:id/confirmation', to: 'orders#show', as: 'confirmation'
     post 'products/:id/cart', to: 'orders#add_product', as: 'add_to_cart'
     post 'orders/:id/update', to: 'orders#update_quantity'
 
