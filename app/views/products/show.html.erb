@@ -8,62 +8,66 @@
 
 <section>
   <ul>
-    <li>Price: <%= @product.price %></li>
-    <li>Quantity: <%= @product.stock %>
-    <li>Sold by: <%= @product.user.username %></li>
-    <li>Status: <%= @product.status %></li>
-    <!-- T_T under the assumption that a category belongs to a product -->
+    <li>Price: $ <%= @product.price %></li>
+    <li>Description: <%= @product.description %></l1>
     <li>
       Category: <% @product.categories.each do |category|%>
       <%= link_to category.name, category_products_path(category.id) %><br>
       <% end %>
     </li>
-    <li>Description: <%= @product.description %></l1>
+    <li>Sold by: <%= link_to @product.user.username, user_path(@product.user.id) %></li>
+    <li>Fluff left: <%= @product.stock %>
   </ul>
 </section>
 
-<section>
-  <h4>Reviews</h4>
-
-  <article>
-    <% if @product.reviews == 0 %>
-    <p>Unrated fluff. <%= link_to "Be the first to review!", new_review_path %></p>
-    <% else %>
-
-<table>
-  <tr>
-    <th>Rating</th>
-    <th>Comment</th>
-    <th>Last Update</th>
-  </tr>
-  <% @product.reviews.each do |review| %>
-  <tr>
-    <td><%= review.rating %></td>
-    <td><%= review.comment %></td>
-    <td><%= review.updated_at %></td>
-
-  </tr>
-  <%end%>
-</table>
-<%end%>
-</section>
-
-<section>
+<section class = "cart_section large-12 medium-12 small-12 columns">
   <% if @product.stock == 0  %>
-  <p>Out of Stock</p>
+    <p>Fluff is out of stock!</p>
   <% else %>
-
-          <% if @current_user.products.include? @product %>
-        <%= link_to 'Edit this product', edit_product_path(@product.id)%>
-          <%else%>
-          <%= form_tag({controller: "orders", action: "add_product"}, method: "post") do %>
-              <%= hidden_field_tag :product_id, @product.id %>
-              <%= hidden_field_tag :order_id, @cart.id %>
-              <%= label_tag "quantity" %>
-              <%= select_tag :quantity, options_for_select( (1..@product.stock).map  ) %>
-              <%= submit_tag("Add to Cart") %>
-          <% end %>
-          <%end%>
+    <% if @current_user.products.include? @product %>
+      <%= link_to 'Edit Your Fluff', edit_product_path(@product.id)%>
+    <%else%>
+    <div class="large-1 medium-2 columns">
+      <%= form_tag({controller: "orders", action: "add_product"}, method: "post") do %>
+        <%= hidden_field_tag :product_id, @product.id %>
+        <%= hidden_field_tag :order_id, @cart.id %>
+        <%= label_tag "Pieces of Fluff" %>
+        <%= select_tag :quantity, options_for_select( (1..@product.stock).map  ) %>
+        <%= submit_tag "Add to Cart", class: "button" %>
+      <% end %>
+    </div>
+    <%end%>
   <%end %>
 </section>
-<%= link_to "Review this fluff.", new_product_review_path(@product) %>
+
+<section class = "review-section">
+  <h4>Reviews</h4>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Rating</th>
+        <th>Comment</th>
+        <th>Last Update</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @product.reviews.each do |review| %>
+      <tr>
+        <td><%= review.rating %></td>
+        <td><%= review.comment %></td>
+        <td><%= review.updated_at %></td>
+      </tr>
+      <%end%>
+    </tbody>
+  </table>
+
+  <artcle>
+    <!-- for products with no reviews -->
+    <% if @product.reviews.empty? %>
+      <p>Unrated fluff. <%= link_to "Be the first to review this fluff!", new_product_review_path(@product) %></p>
+    <% else %>
+      <%= link_to "Review this Fluff", new_product_review_path(@product) %>
+    <%end%>
+  </artcle>
+</section>
