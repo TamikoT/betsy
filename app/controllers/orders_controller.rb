@@ -3,10 +3,10 @@ class OrdersController < ApplicationController
 
   def index
     if params[:status]
-      @orders = Order.includes(:product_orders).where(product_orders: { product_id: Product.find_by(user_id: params[:user_id]).id }).where(status: params[:status])
+      @orders = Order.includes(:product_orders).where(product_orders: { product_id: Product.where(user_id: params[:user_id]).ids }).where(status: params[:status])
       @status_revenue = revenue_by_status(@orders, params[:user_id])
     else
-      @orders = Order.includes(:product_orders).where(product_orders: { product_id: Product.find_by(user_id: params[:user_id]).id })
+      @orders = Order.includes(:product_orders).where(product_orders: { product_id: Product.where(user_id: params[:user_id]).ids })
       @status_revenue = revenue_by_status(@orders, params[:user_id])
     end
   end
