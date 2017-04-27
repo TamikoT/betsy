@@ -72,7 +72,7 @@ class OrdersController < ApplicationController
       redirect_to product_path(prev_item.product_id)
     else
       flash[:status] = :success
-      flash[:result_text] = "Successfluffy added #{Product.find_by(id: product_params[:product_id])} to cart"
+      flash[:result_text] = "Successfluffy added #{Product.find_by(id: product_params[:product_id]).name} to cart"
       ProductOrder.create!(product_params)
       redirect_to order_path
     end
