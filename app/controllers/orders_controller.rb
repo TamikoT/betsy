@@ -22,11 +22,12 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = @cart # in ApplicationController
+    @order = @cart # from initialize_cart method in ApplicationController
     @sum = @cart.cart_total
     @items = @cart.cart_quantity
   end
 
+  # At cart checkout
   def edit
     @order = @cart
   end
@@ -35,6 +36,7 @@ class OrdersController < ApplicationController
     @order = @cart
     @order.update(order_params)
     @order.status = 'paid'
+    # if order (cart) is successfully saved as paid go to confirmation
     if @order.save
       flash[:result_text] = "Your Order # #{@order.id} has been placed!"
 
@@ -45,13 +47,14 @@ class OrdersController < ApplicationController
 
       redirect_to confirmation_path
     else
-      flash[:result_text] = 'Unable to place order'
+      flash[:result_text] = 'Unable to place your order.'
       flash[:messages] = @order.errors.messages
       @order.status = 'pending'
       render 'edit'
     end
   end
 
+  # Buyer removes item in cart from Product#Show page
   def remove_product
     old_line_item = ProductOrder.find_by_id(params[:item_id].to_i)
     old_line_item.destroy!
@@ -59,6 +62,7 @@ class OrdersController < ApplicationController
     redirct_to order_path
   end
 
+  # Order status updated by Seller
   def update_status
     @order = Order.find_by(id: params[:order_id])
     @order.status = params[:status]
@@ -67,6 +71,7 @@ class OrdersController < ApplicationController
     redirect_to :back
   end
 
+  # Checkout confirmation page
   def confirm
     @order = @cart
     @sum = @cart.cart_total
@@ -74,7 +79,8 @@ class OrdersController < ApplicationController
     session[:order_id] = nil if @order.status == 'paid'
   end
 
-  def add_product # passed in from product view
+  # Buyer adds to cart from Product#Show page
+  def add_product
     prev_item = ProductOrder.find_by(product_params)
     if prev_item
       flash[:result_text] = "Added #{product_params[:quantity]} more #{Product.find_by(id: product_params[:product_id])} to cart"
@@ -89,11 +95,12 @@ class OrdersController < ApplicationController
     end
   end
 
+  # Buyer adds/subtracts items from Order#Show page
   def update_quantity
     line_item = ProductOrder.find_by_id(params[:item_id].to_i)
     line_item.quantity = params[:quantity].to_i
 
-    # T_T removes product from cart when qty is updated to 0
+    # removes product from cart when qty is updated to 0
     if line_item.quantity == 0
       line_item.destroy!
     else
@@ -112,6 +119,8 @@ class OrdersController < ApplicationController
     end
     sprintf('%.2f', sum)
   end
+
+  # ~~~~~~~~~~~~~~~~~~~~~~~~ooooooooooooooooooooooo~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   private
 
