@@ -5,11 +5,11 @@ class ProductsController < ApplicationController
         @categories = Category.all
         @merchants = User.all
         if params[:category_id]
-            @products = Product.includes(:product_categories).where(product_categories: { category_id: params[:category_id] })
+            @products = Product.includes(:product_categories).where(product_categories: { category_id: params[:category_id] }).where.not(status: false)
         elsif params[:user_id]
-            @products = User.find_by(id: params[:user_id]).products
+            @products = User.find_by(id: params[:user_id]).products.where.not(status: false)
         else
-            @products = Product.all
+            @products = Product.all.where.not(status: false)
         end
     end
 
@@ -20,12 +20,11 @@ class ProductsController < ApplicationController
 
         if @product.save
             flash[:notice] = 'Product was successfully created.'
+            redirect_to user_path(@current_user)
         else
             flash[:notice] = 'Error creating product'
-            flash[:messages] = @product.errors.messages
+            render 'new'
         end
-
-        redirect_to user_path(@current_user)
     end
 
     def update
@@ -38,7 +37,6 @@ class ProductsController < ApplicationController
         else
             flash[:status] = :failure
             flash[:result_text] = "Unable to edit #{@product.name}"
-            flash[:messages] = @product.errors.messages
             render 'edit'
         end
     end
@@ -63,8 +61,6 @@ class ProductsController < ApplicationController
         flash[:result_text] = "Successfluffy removed #{Product.find_by(id: params[:id]).name} from #{Category.find_by(id: params[:category_id]).name}"
         redirect_to user_path(@current_user)
     end
-
-    private
 
     def new
         @product = Product.new

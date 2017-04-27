@@ -1,7 +1,8 @@
 <header>
 <nav>
 
-  <h1><%= link_to 'Mother Fuffer, You fuffing fuffer', root_path %></h1>
+  <h1><%= link_to 'Mother Fluffer, You fluffing fluffer', root_path %></h1>
+
   <!-- <h2> You fuffing fuffer</h2> -->
 
     <%= link_to "Products", products_path %>
@@ -15,7 +16,14 @@
         <section>
           <% if @current_user %>
           Fuffed in as <%= link_to "#{@current_user.username}", user_path(session[:user_id])%>
+
           <%= link_to "Logout", logout_path, method: :logout%>
+
+          <div>
+            <%= link_to "#{@cart_quantity} products in your cart ", order_path(session[:user_id]) %>
+
+          </div>
+
           <%else%>
           Not Fuffed in
           <%= link_to "Login", login_path%>
