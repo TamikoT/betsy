@@ -40,7 +40,7 @@
     </div>
 
     <% if !(@current_user.nil?) && (@current_user.products.include? @product) %>
-      <%= link_to 'Edit your product', edit_product_path(@product.id), class: :button %>
+      <%= link_to 'Edit your product', edit_product_path(@product.id), class: 'edit-product button' %>
     <% else %>
     <div class="large-1 medium-2 columns">
       <%= form_tag({controller: "orders", action: "add_product"}, method: "post") do %>
