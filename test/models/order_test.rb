@@ -334,17 +334,86 @@ describe Order do
 
         order.must_be :valid?
       end
-      #
     end
 
-    it "new order can not be created without a credit card" do
-      order = orders(:two)
-      order[:credit_card] = nil
-      order.save
+    describe "Credit card validations" do
 
-      order.wont_be :valid?
+      it "Credit card can only be a valid credit card (Visa)" do
+        #Status: paid
+        order = orders(:two)
+        order[:credit_card] = 4012888888881881
+        order.save
+
+        order.must_be :valid?
+      end
+
+      it "Credit card can only be a valid credit card (MasterCard)" do
+        #Status: paid
+        order = orders(:two)
+        order[:credit_card] = 5105105105105100
+        order.save
+
+        order.must_be :valid?
+      end
+
+      it "Credit card is invalid unless Visa or MasterCard" do
+        #Status: paid
+        order = orders(:two)
+        order[:credit_card] = 0000000000000000
+        order.save
+
+        order.wont_be :valid?
+      end
+
+      it "if status is paid, order is invalid if credit card is not present" do
+        order = orders(:two)
+        order[:credit_card] = nil
+        order.save
+
+        order.wont_be :valid?
+      end
+
+      it "if status is complete, order is invalid if credit card is not present" do
+        order = orders(:two)
+        order[:status] = "complete"
+        order[:credit_card] = nil
+        order.save
+
+        order.wont_be :valid?
+      end
+
+      it "if status is paid, order is valid if credit card is present" do
+        order = orders(:two)
+
+        order.must_be :valid?
+      end
+
+      it "if status is complete, order is valid if credit card is present" do
+        order = orders(:two)
+        order[:status] = "complete"
+        order.save
+
+        order.must_be :valid?
+      end
+
+      it "if status is pending, order is valid if credit card is not present" do
+        order = orders(:two)
+        order[:status] = "pending"
+        order[:credit_card] = nil
+        order.save
+
+        order.must_be :valid?
+      end
+
+      it "if status is cancelled, order is valid if credit card is not present" do
+        order = orders(:two)
+        order[:status] = "cancelled"
+        order[:credit_card] = nil
+        order.save
+
+        order.must_be :valid?
+      end
     end
-
   end
 
   describe "associations test" do
