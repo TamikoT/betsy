@@ -6,8 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-require 'faker'
 require 'csv'
+require 'faker'
 
 categories = %w(Accessories Wearables Food Decor Misc Tech)
 categories.each do |name|
@@ -42,7 +42,7 @@ end
 50.times do
     Review.create!(
         rating: Faker::Number.between(1, 5),
-        comment: Faker::RickAndMorty.quote,
+        comment: Faker::ChuckNorris.fact,
         product_id: Faker::Number.between(1, 38)
     )
 end
