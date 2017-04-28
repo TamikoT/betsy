@@ -16,8 +16,19 @@
 <%end%>
 </ol>
 
-<ul>
-<% @products.each do |item|%>
-<li><%= link_to "#{item.name} Cost: $#{'%.2f' % item.price}", product_path(item.id) %></li>
-<%end%>
-</ul>
+<table>
+  <thead>
+  <tr>
+    <th>Product Name</th>
+    <th>Price</th>
+  </tr>
+  <thead>
+  <tbody>
+    <% @products.each do |item|%>
+    <tr>
+    <td><%= link_to "#{item.name}", product_path(item.id) %></td>
+    <td><%= "$#{'%.2f' % item.price}" %></td>
+  </tr>
+    <%end%>
+  </tbody>
+</table>
