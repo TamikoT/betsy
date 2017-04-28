@@ -1,6 +1,11 @@
 require 'test_helper'
 
 describe UsersController do
+
+  before do
+    login(users(:grace))
+  end
+
   describe "index" do
 
     it "responds with no users" do
@@ -31,7 +36,7 @@ describe UsersController do
 
   describe "create" do
     it "adds user to database" do
-      # skip
+      skip
       user_data = { user: { name: "Test Name", email: "test@aol.com" } }
       post users_path, params: user_data
       # T_T not necessarily where we will redirect to
@@ -41,7 +46,7 @@ describe UsersController do
     it "refreshed the form if the info sucks" do
       # test if no username is given
       # skip
-      user_data = { email: { email: "noname@aol.com" } }
+      user_data = { user: { email: "noname@aol.com" } }
       post users_path, params: user_data
       must_respond_with :bad_request
     end
