@@ -7,3 +7,10 @@ one:
 two:
   id: 2
   status: paid
+  email_address: validemail@gmail.com
+  mailing_address: 123 valid address
+  card_name: Valid Name
+  card_expiration: '2017-04-23' #NOTE: Format is slightly different than webiste (we do not have day).
+  card_cvv: 123
+  zipcode: 12345
+  credit_card: 4111111111111111
