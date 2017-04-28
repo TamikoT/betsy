@@ -35,8 +35,9 @@
   </ul>
 </section>
 
-<% if @product.stock > 0 %>
+
   <section class = "cart_section large-12 medium-12 small-12 columns">
+    <% if @product.stock > 0 %>
     <div class="product-photo">
       <%= image_tag url="#{@product.photo}" %>
     </div>
