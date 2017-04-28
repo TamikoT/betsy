@@ -9,16 +9,17 @@
   </head>
 
   <body>
-  <%= render "layouts/header" %>
+    <%= render "layouts/header" %>
 
+    <section class='flash'>
+      <% flash.each do |name, message| %>
+      <div class="<%= name %>"><%= message %></div>
+      <% end %>
+    </section>
+    <main>
+        <%= yield %>
+    </main>
+    <%= render "layouts/footer" %>
 
-<main>
-<section class='flash'>
-  <% flash.each do |name, message| %>
-  <div class="<%= name %>"><%= message %></div>
-  <% end %>
-</section>
-</main>
-    <%= yield %>
   </body>
 </html>

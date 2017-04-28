@@ -7,79 +7,55 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 require 'faker'
+require 'csv'
 
-# create 20 random users
-20.times do
+categories = %w(Accessories Wearables Food Decor Misc Tech)
+categories.each do |name|
+  Category.create(name: name)
+end
+
+# create 10 random sellers
+10.times do
     User.create!(
         username: Faker::Name.unique.first_name,
         email: Faker::Internet.email
     )
 end
 
-# create 50 random products
-50.times do
-    Product.create!(
-        stock: Faker::Number.between(1, 10),
-        name: Faker::Commerce.unique.product_name,
-        price: Faker::Commerce.price,
-        user_id: Faker::Number.between(1, 20),
-        photo: Faker::LoremPixel.image('50x60'),
-        status: true
-    )
+# 38 Products from CSV
+product_data = File.read(Rails.root.join('lib', 'seeds', 'product.csv'))
+
+product_csv = CSV.parse(product_data, :headers => true)
+product_csv.each do |row|
+  product = Product.new
+  product.status = true
+  product.name = row['name']
+  product.description = row['description']
+  product.photo = row['photo']
+  product.price = row['price']
+  product.user_id = row['user_id']
+  product.stock = row['stock']
+  product.save!
 end
 
-# create 10 random categories
-10.times do
-    Category.create!(
-        name: Faker::Commerce.unique.department
-    )
-end
-
-# create 50 random orders
-50.times do
-    Order.create!(
-        status: 'complete',
-        email_address: Faker::Internet.email,
-        mailing_address: Faker::Lorem.sentence,
-        card_name: Faker::Name.unique.first_name,
-        card_expiration: Date.today,
-        card_cvv: 434,
-        zipcode: 55_555
-    )
-end
-
-# create 50 random reviews
+# Create 50 random reviews
 50.times do
     Review.create!(
         rating: Faker::Number.between(1, 5),
         comment: Faker::Lorem.sentence,
-        product_id: Faker::Number.between(1, 50)
+        product_id: Faker::Number.between(1, 38)
     )
 end
 
 # JOIN TABLES
 
-# create 50 random product_categories
-50.times do
-    ProductCategory.create!(
-        category_id: Faker::Number.between(1, 10),
-        product_id: Faker::Number.between(1, 50)
-    )
-end
-#
-# # create 50 random product_orders
-50.times do
-    ProductOrder.create!(
-        product_id: Faker::Number.between(1, 50),
-        order_id: Faker::Number.between(1, 20),
-        quantity: 1
-    )
-end
-#
-# # create 20 random user_orders
-20.times do
-    UserOrder.create!(
-        user_id: Faker::Number.between(1, 20),
-        order_id: Faker::Number.between(1, 50)
-    )
+# 38 ProductCategory from CSV
+join_data = File.read(Rails.root.join('lib', 'seeds', 'productscategory.csv'))
+
+join_csv = CSV.parse(join_data, :headers => true)
+join_csv.each do |row|
+  categorize = ProductCategory.new
+  categorize.category_id = row['category_id']
+  categorize.product_id = row['product_id']
+  categorize.save!
 end
