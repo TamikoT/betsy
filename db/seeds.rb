@@ -42,7 +42,7 @@ end
 50.times do
     Review.create!(
         rating: Faker::Number.between(1, 5),
-        comment: Faker::Lorem.sentence,
+        comment: Faker::RuPaul.quote,
         product_id: Faker::Number.between(1, 38)
     )
 end

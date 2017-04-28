@@ -1,12 +1,12 @@
 <h3>User Summary: <%= link_to @user.username, user_path(@user) %></h3>
 
 <h4>Products</h4>
-<p><%= link_to "Create New Category", new_category_path %></p>
-<p><%= link_to "Create New Product", new_product_path %></p>
 
 <% if @current_user == @user %>
 <p>Total Earnings: $<%= @total_earnings %></p>
-<p><%= link_to "View all Orders", user_orders_path(@current_user.id)%></p>
+<%= link_to "Create New Category", new_category_path %> oo
+<%= link_to "Create New Product", new_product_path %> oo
+<%= link_to "View all Orders", user_orders_path(@current_user.id)%>
 <%end%>
 <table>
   <thead>
