@@ -3,9 +3,9 @@
 
 <div class="cardContainer">
   <% @categories.each do |category|%>
-  <% next if category.products.nil? %>
+  <% next if category.products.empty? %>
   <div class="card">
-    <%= image_tag url="#{category.products.sample.photo}" %>
+    <%= image_tag url="#{category.products.sample.photo}" , alt: "Category Picture" %>
     <div class="card-section">
       <h4> <%= link_to category.name, category_products_path(category.id) %></h4>
     </div>
