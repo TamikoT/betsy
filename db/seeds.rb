@@ -9,7 +9,7 @@
 require 'faker'
 require 'csv'
 
-categories = %w(Accessories, Wearables, Food, Decor, Misc, Tech)
+categories = %w(Accessories Wearables Food Decor Misc Tech)
 categories.each do |name|
   Category.create(name: name)
 end
