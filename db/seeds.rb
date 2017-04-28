@@ -23,7 +23,7 @@ end
         name: Faker::Commerce.unique.product_name,
         price: Faker::Commerce.price,
         user_id: Faker::Number.between(1, 20),
-        photo: Faker::LoremPixel.image('50x60'),
+        photo: Faker::LoremPixel.image('300x300'),
         status: true
     )
 end

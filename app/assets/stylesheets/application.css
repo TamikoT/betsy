@@ -15,3 +15,93 @@
  *= require foundation_and_overrides
 
  */
+
+ @font-face {
+   font-family: 'Kingthings';
+   src: url('KingthingsLupineless.ttf') format('truetype');
+   font-weight: normal;
+   font-style: normal;
+ }
+
+ body{
+   background-color: #cfd8dc;
+ }
+
+
+
+ .cardContainer {
+     display: flex;
+     flex-direction: row;
+     flex-wrap: wrap;
+     margin: auto;
+     width: 100%;
+     justify-content: center;
+ }
+
+ .card {
+   flex: 30%;
+    margin: 15px;
+    flex-grow: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    border: none;
+  }
+.card:hover{
+  box-shadow:rgba(0, 0, 0, 0.3) 0 16px 16px 0;
+ }
+
+.card img {
+  width: 100%;
+    max-height: 200px;
+
+}
+
+nav > section {
+  align-self: baseline;
+      flex-direction: column;
+      align-items: flex-end;
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      display: flex;
+}
+
+.cart_quantity {
+  margin-right: 5px;
+}
+.cart_quantity:hover {
+  color: white;
+}
+
+main {
+  margin: auto;
+  width: 95%;
+}
+
+.table-scroll table {
+  width: 100%;
+}
+
+nav {
+  display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+header{
+  z-index:100;
+  height: 100px;
+  border-bottom: 2px solid #ffc107;
+  width: 100%;
+      margin: 5px 0 80px 0;
+}
+
+h1.welcome{
+  text-align: center;
+   font-family: 'Kingthings';
+   color: #f48fb1;
+   font-size: 6rem;
+ }
