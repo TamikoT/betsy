@@ -1,3 +1,6 @@
+<!-- receipt only shows up if order is paid -->
+<% if @order.status == 'paid' %>
+
 <h2>Your Receipt</h2>
 
 <h4>Order #0<%= @order.id %></h4>
@@ -5,7 +8,7 @@
 <section>
   <ul>
     <li>
-      Date: <%= @order.created_at %>
+      Date: <%= @order.created_at.strftime("%m-%d-%Y") %>
     </li>
     <li>
       Status: <%= @order.status %>
@@ -33,6 +36,7 @@
     </li>
   </ul>
 </section>
+
 
 <div class="table-scroll">
   <table>
@@ -73,6 +77,11 @@
   </table>
 </div>
 
-<p>Your fluff will be with you shortly.</p>
+<p>Thank you! Your fluff will be with you shortly.</p>
+<% else %>
+<p>Your cart has been cleared!</p>
+<% end %>
 
-<%= link_to "Back Home", root_path, class: "button" %>
+<section>
+  <%= link_to "Back to Fluff", root_path, class: "button" %>
+</section>
