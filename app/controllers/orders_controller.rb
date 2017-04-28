@@ -83,15 +83,18 @@ class OrdersController < ApplicationController
 
     # Buyer adds to cart from Product#Show page
     def add_product
-        prev_item = ProductOrder.find_by(product_params)
-        if prev_item
-            flash[:result_text] = "Added #{product_params[:quantity]} more #{Product.find_by(id: product_params[:product_id])} to cart"
+        prev_item = ProductOrder.find_by(product_id: product_params[:product_id], order_id: product_params[:order_id])
+        product = Product.find_by(id: product_params[:product_id])
+        if prev_item && !(product_params[:quantity].to_i > (product.stock - prev_item.quantity))
+            flash[:result_text] = "Added #{product_params[:quantity]} more #{product.name} to cart"
             prev_item.quantity += product_params[:quantity].to_i
             prev_item.save!
             redirect_to product_path(prev_item.product_id)
+        elsif prev_item && product_params[:quantity].to_i > (product.stock - prev_item.quantity)
+            flash[:result_text] = "Can't add more items than are available!"
+            redirect_to product_path(prev_item.product_id)
         else
-            flash[:status] = :success
-            flash[:result_text] = "Successfluffy added #{Product.find_by(id: product_params[:product_id])} to cart"
+            flash[:result_text] = "Successfluffy added #{product.name} to cart"
             ProductOrder.create!(product_params)
             redirect_to order_path
         end

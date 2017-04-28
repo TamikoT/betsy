@@ -59,6 +59,36 @@ nav a:hover{
      justify-content: center;
  }
 
+ .productname{
+   text-align: center;
+    font-family: 'Kingthings';
+    color: #ffd54f;
+    font-size: 6rem;
+    margin-bottom: 30px;
+ }
+
+section.cart_section{
+  display: inline-flex;
+  width: 50%;
+}
+
+ .product-photo{
+   display: inline-block;
+   margin-left: 50px;
+ }
+
+section.product-details{
+  display: inline-block;
+  font-size: 1.3rem;
+}
+
+select#quantity{
+  width: 70px;
+}
+section.review-section{
+  display: block;
+  margin-top: 50px;
+}
  .card {
    flex: 30%;
     margin: 15px;
@@ -67,7 +97,7 @@ nav a:hover{
     display: flex;
     flex-direction: column;
     border: none;
-    background-color: #ffc107;
+    background-color: #ffd54f;
   }
 .card:hover{
   box-shadow:rgba(0, 0, 0, 0.3) 0 16px 16px 0;
@@ -79,7 +109,7 @@ nav a:hover{
 
 .card img {
   width: 100%;
-    max-height: 200px;
+    max-height: 250px;
 
 }
 
@@ -165,16 +195,17 @@ input:hover{
    border-radius: 15%;
  }
 
-h3, h4{
+h2, h3, h4{
   font-family: 'Averia Gruesa Libre', cursive;
 }
+
 
 ul {
   list-style: none;
 }
 
  .button-dropdown {
-   background-color: #ffc107; /* Green */
+   background-color: #d81b60; /* Green */
    border: none;
    color: white;
    padding: 15px 32px;
@@ -184,6 +215,7 @@ ul {
    font-size: 16px;
    font-family: 'Averia Gruesa Libre', cursive;
    font-size: 2rem;
+   border-radius: 22px;
  }
 
  .dropdown {
@@ -206,4 +238,22 @@ ul {
 
  .dropdown:hover .dropdown-content {
    display: block;
+ }
+
+ .productprice{
+   color:white;
+   font-size: 1.8rem;
+ }
+
+ .flash{
+   font-size: 2.5rem;
+   color: #4caf50;
+ }
+
+ .fancyborder{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 80px;
+
  }
