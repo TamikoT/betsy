@@ -1,34 +1,39 @@
-<h1> All Things Fluffy </h1>
+<h1 class="text-center"> What the Fluff </h1>
 
-<h4>by category</h4>
-<ol>
-<% @categories.each do |category| %>
-<li><%= link_to "#{category.name}", category_products_path(category.id)%></li>
-<%end%>
-</ol>
+<section class="text-center">
+  <div class="dropdown">
+    <h2 class="button-dropdown">Shop by Category</h2>
+    <div class="dropdown-content">
+      <% @categories.each do |category| %>
+        <p><%= link_to "#{category.name}", category_products_path(category.id)%></p>
+      <% end %>
+    </div>
+  </div>
 
-<h4>by merchant</h4>
-<ol>
-<% @merchants.each do |merchant| %>
-<% unless merchant.products.empty? %>
-<li><%= link_to "#{merchant.username}", user_products_path(merchant.id)%></li>
-<%end%>
-<%end%>
-</ol>
+  <div class="dropdown">
+    <h2 class="button-dropdown">Shop by Merchant</h2>
+    <div class="dropdown-content">
+      <% @merchants.each do |merchant| %>
+      <% unless merchant.products.empty? %>
+        <p><%= link_to "#{merchant.username}", user_products_path(merchant.id)%></p>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>
 
-<table>
-  <thead>
-  <tr>
-    <th>Product Name</th>
-    <th>Price</th>
-  </tr>
-  <thead>
-  <tbody>
-    <% @products.each do |item|%>
-    <tr>
-    <td><%= link_to "#{item.name}", product_path(item.id) %></td>
-    <td><%= "$#{'%.2f' % item.price}" %></td>
-  </tr>
-    <%end%>
-  </tbody>
-</table>
+
+<div class="cardContainer">
+  <% @products.each do |product|%>
+  <div class="card">
+    <% if product.photo.nil? %>
+    <%= image_tag url="https://img.memesuper.com/e1974b11dafe9e5c6540ac35912dfd91_funny-memes-no-time-to-explain-funny-pictures-with-no-memes_620-452.jpeg" , alt: "No Product Image" %>
+    <% else %>
+    <%= image_tag url="#{product.photo}" , alt: "Product Photo" %>
+    <% end %>
+    <div class="card-section">
+      <h4> <%= link_to ("#{product.name}" + " $#{'%.2f' % product.price}"), products_path(product) %></h4>
+    </div>
+  </div>
+  <% end %>
+</div>
