@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 require 'faker'
+require 'csv'
 
 categories = %w(Accessories, Wearables, Food, Decor, Misc, Tech)
 categories.each do |name|
@@ -42,7 +43,7 @@ end
     Review.create!(
         rating: Faker::Number.between(1, 5),
         comment: Faker::Lorem.sentence,
-        product_id: Faker::Number.between(1, 50)
+        product_id: Faker::Number.between(1, 38)
     )
 end
 
@@ -54,6 +55,7 @@ join_data = File.read(Rails.root.join('lib', 'seeds', 'productscategory.csv'))
 join_csv = CSV.parse(join_data, :headers => true)
 join_csv.each do |row|
   categorize = ProductCategory.new
-  categorize.name = row['name']
+  categorize.category_id = row['category_id']
+  categorize.product_id = row['product_id']
   categorize.save!
 end
