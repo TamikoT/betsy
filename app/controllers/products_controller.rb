@@ -31,11 +31,9 @@ class ProductsController < ApplicationController
         @product = Product.find(params[:id])
         @product.update(product_params)
         if @product.save
-            flash[:status] = :success
             flash[:result_text] = "Updated #{@product.name}"
             redirect_to user_path(@current_user.id)
         else
-            flash[:status] = :failure
             flash[:result_text] = "Unable to edit #{@product.name}"
             render 'edit'
         end
@@ -44,10 +42,8 @@ class ProductsController < ApplicationController
     def add_category
         new_category = ProductCategory.new(product_id: params[:product_id], category_id: params[:category][:id])
         if new_category.save
-            flash[:status] = :success
             flash[:result_text] = "Successfluffy categorized #{Product.find_by(id: params[:id]).name} as #{Category.find_by(id: params[:category][:id]).name}"
         else
-            flash[:status] = :failure
             flash[:result_text] = 'Unable to add category'
             flash[:messages] = new_category.errors.messages
         end
@@ -57,7 +53,6 @@ class ProductsController < ApplicationController
     def remove_category
         deleted_category = ProductCategory.find_by(product_id: params[:id], category_id: params[:category_id])
         deleted_category.destroy
-        flash[:status] = :success
         flash[:result_text] = "Successfluffy removed #{Product.find_by(id: params[:id]).name} from #{Category.find_by(id: params[:category_id]).name}"
         redirect_to user_path(@current_user)
     end
