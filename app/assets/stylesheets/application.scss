@@ -20,18 +20,35 @@
 
  @font-face {
    font-family: 'Kingthings';
-   src: url('KingthingsLupineless.ttf') format('truetype');
+   src: font-url("KingthingsLupineless.ttf") format('truetype');
    font-weight: normal;
    font-style: normal;
  }
 
  body{
-   background-color: #cfd8dc;
+   background-color: #eceff1;
    font-family: 'Averia Gruesa Libre', cursive;
-   font-size: 2rem;
  }
 
+a{
+  color: #d81b60;
+}
 
+a:hover{
+  color: #f48fb1;
+}
+
+nav a{
+  color: #d81b60;
+}
+
+nav a:hover{
+  color: #ffc107;
+}
+
+.navlink{
+  margin-bottom: 53px;
+}
 
  .cardContainer {
      display: flex;
@@ -50,9 +67,14 @@
     display: flex;
     flex-direction: column;
     border: none;
+    background-color: #ffc107;
   }
 .card:hover{
   box-shadow:rgba(0, 0, 0, 0.3) 0 16px 16px 0;
+ }
+
+ .card a{
+   font-family: 'Kingthings';
  }
 
 .card img {
@@ -66,13 +88,15 @@ nav > section {
       flex-direction: column;
       align-items: flex-end;
       position: absolute;
-      top: 10px;
+      top: 5px;
       right: 15px;
       display: flex;
+      font-size: 1.3rem;
 }
 
 .cart_quantity {
   margin-right: 5px;
+  background-color: #ffc107;
 }
 .cart_quantity:hover {
   color: white;
@@ -80,7 +104,7 @@ nav > section {
 
 main {
   margin: auto;
-  width: 95%;
+  width: 80%;
 }
 
 .table-scroll table {
@@ -93,9 +117,12 @@ nav {
     align-items: center;
     justify-content: center;
     flex-direction: row;
+    font-family: 'Averia Gruesa Libre', cursive;
+    font-size: 2rem;
 }
 
 header{
+  background-color: #f48fb1;
   z-index:100;
   height: 100px;
   border-bottom: 2px solid #ffc107;
@@ -106,6 +133,77 @@ header{
 h1.welcome{
   text-align: center;
    font-family: 'Kingthings';
-   color: #f48fb1;
+   color: #d81b60;
    font-size: 6rem;
+ }
+
+ h1{
+   font-family: 'Kingthings';
+   color: #f48fb1;
+ }
+
+ a.button {
+  background-color: #ffc107;
+  border-radius: 35%;
+ }
+
+ a.button:hover{
+   background-color: #f48fb1;
+ }
+
+ input{
+   background-color: #f48fb1;
+   font-family: 'Kingthings';
+   color: #d81b60;
+}
+
+input:hover{
+  background-color: #ffc107;
+}
+
+ [type='submit'] {
+   border-radius: 15%;
+ }
+
+h3, h4{
+  font-family: 'Averia Gruesa Libre', cursive;
+}
+
+ul {
+  list-style: none;
+}
+
+ .button-dropdown {
+   background-color: #ffc107; /* Green */
+   border: none;
+   color: white;
+   padding: 15px 32px;
+   text-align: center;
+   text-decoration: none;
+   display: inline-block;
+   font-size: 16px;
+   font-family: 'Averia Gruesa Libre', cursive;
+   font-size: 2rem;
+ }
+
+ .dropdown {
+   position: relative;
+   display: inline-block;
+ }
+
+ .dropdown-content {
+   display: none;
+   position: absolute;
+   background-color: #f9f9f9;
+   min-width: 200px;
+   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+   padding: 12px 16px;
+   font-size: 1.5rem;
+   z-index: 1;
+   font-family: 'Averia Gruesa Libre', cursive;
+   font-size: 2rem;
+ }
+
+ .dropdown:hover .dropdown-content {
+   display: block;
  }

@@ -23,7 +23,9 @@
 
     <li>
       Categories: <% @product.categories.each do |category|%>
-      <%= link_to category.name, category_products_path(category.id) %><br>
+      <ul>
+      <li><%= link_to category.name, category_products_path(category.id) %></li>
+      </ul>
       <% end %>
     </li>
     <li>Sold by: <%= link_to @product.user.username, user_path(@product.user.id) %></li>
