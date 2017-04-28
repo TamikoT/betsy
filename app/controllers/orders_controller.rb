@@ -27,7 +27,6 @@ class OrdersController < ApplicationController
   end
 
   def update
-    # raise
     @order = @cart
     @order.update(order_params)
     @order.status = 'paid'
