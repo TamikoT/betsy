@@ -14,11 +14,6 @@ describe Product do
   end
 
   describe "validation tests" do
-    it "product can not be created without a valid status" do
-      products(:two)[:status] = nil
-
-      products(:two).wont_be :valid?
-    end
 
     it "product can not be created without valid stock" do
       products(:two)[:stock] = -1

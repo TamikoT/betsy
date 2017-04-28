@@ -1,6 +1,4 @@
-<h3>Product Details</h3>
-
-<h4><%= @product.name %></h4>
+<h1 class='productname'><%= @product.name %></h1>
 
 <% if @product.errors.any? %>
 <ul>
@@ -10,11 +8,8 @@
 </ul>
 <% end %>
 
-<div class="product-photo">
-  <%= image_tag url="#{@product.photo}" %>
-</div>
-
-<section>
+<section class="product-details">
+  <h3>Product Details</h3>
   <ul>
     <li>Price: $ <%= '%.2f' % @product.price %></li>
     <% if @product.description != nil %>
@@ -23,7 +18,9 @@
 
     <li>
       Categories: <% @product.categories.each do |category|%>
-      <%= link_to category.name, category_products_path(category.id) %><br>
+      <ul>
+      <li><%= link_to category.name, category_products_path(category.id) %></li>
+      </ul>
       <% end %>
     </li>
     <li>Sold by: <%= link_to @product.user.username, user_path(@product.user.id) %></li>
@@ -38,8 +35,12 @@
 
 <% if @product.stock > 0 %>
   <section class = "cart_section large-12 medium-12 small-12 columns">
+    <div class="product-photo">
+      <%= image_tag url="#{@product.photo}" %>
+    </div>
+
     <% if !(@current_user.nil?) && (@current_user.products.include? @product) %>
-      <%= link_to 'Edit your product', edit_product_path(@product.id), class: :button %>
+      <%= link_to 'Edit your product', edit_product_path(@product.id), class: 'edit-product button' %>
     <% else %>
     <div class="large-1 medium-2 columns">
       <%= form_tag({controller: "orders", action: "add_product"}, method: "post") do %>
@@ -53,6 +54,7 @@
     <% end %>
   </section>
 <% end %>
+
 
 <section class = "review-section">
   <h4>Reviews</h4>

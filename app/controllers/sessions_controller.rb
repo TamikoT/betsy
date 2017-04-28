@@ -6,12 +6,12 @@ class SessionsController < ApplicationController
         if user
             session[:user_id] = user.id
             flash[:result_text] = "Welcome back,  #{user.username}"
+            redirect_to root_path
         else
             flash[:result_text] = 'Could not log in' #this is kinda buggy : (
-            flash[:messages] = user.errors.messages
+            # flash[:messages] = user.errors.messages
             render 'new', status: :bad_request
         end
-        redirect_to root_path
     end
 
     def create
