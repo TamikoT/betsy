@@ -16,6 +16,8 @@
 
  */
 
+ @import url('https://fonts.googleapis.com/css?family=Averia+Gruesa+Libre');
+
  @font-face {
    font-family: 'Kingthings';
    src: url('KingthingsLupineless.ttf') format('truetype');
@@ -25,6 +27,8 @@
 
  body{
    background-color: #cfd8dc;
+   font-family: 'Averia Gruesa Libre', cursive;
+   font-size: 2rem;
  }
 
 
