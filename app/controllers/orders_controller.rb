@@ -50,7 +50,6 @@ class OrdersController < ApplicationController
             redirect_to confirmation_path
         else
             flash[:result_text] = 'Unable to place your order.'
-            flash[:messages] = @order.errors.messages
             @order.status = 'pending'
             render 'edit'
         end

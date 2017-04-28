@@ -1,5 +1,6 @@
 <h1 class='productname'><%= @product.name %></h1>
 
+<section class='errormsgs'>
 <% if @product.errors.any? %>
 <ul>
   <% @product.errors.each do |attribute, message| %>
@@ -7,6 +8,7 @@
   <% end %>
 </ul>
 <% end %>
+</section>
 
 <section class="product-details">
   <h3>Product Details</h3>

@@ -1,5 +1,6 @@
 <h1>Checkout</h1>
 
+<section class='errormsgs'>
 <% if @order.errors.any? %>
 <ul>
   <% @order.errors.each do |attribute, message| %>
@@ -7,6 +8,7 @@
   <% end %>
 </ul>
 <% end %>
+</section>
 
 <section>
   <%= form_for @order do |f| %>
