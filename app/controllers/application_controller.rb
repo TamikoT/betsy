@@ -17,23 +17,18 @@ class ApplicationController < ActionController::Base
   def initialize_cart
     if session[:order_id]
       @cart = Order.find_by(id: session[:order_id])
-
-      items = 0
-      @cart.product_orders.each do |item|
-        items += item.quantity
-      end
-        @cart_quantity = items
+      @cart_quantity = @cart.cart_quantity
     else
     @cart = Order.create!(status: 'pending') # T_T needs default status
     session[:order_id] = @cart.id
     end
   end
 
-def require_login
-  find_user
-  if @current_user.nil?
-    flash[:result_text] = 'You must be logged in to do that!'
-    redirect_to root_path
+  def require_login
+    find_user
+    if @current_user.nil?
+      flash[:result_text] = 'You must be logged in to do that!'
+      redirect_to root_path
+    end
   end
-end
 end

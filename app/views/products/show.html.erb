@@ -16,63 +16,77 @@
 
 <section>
   <ul>
-    <li>Price: <%= @product.price %></li>
-    <li>Quantity: <%= @product.stock %>
-    <li>Sold by: <%= @product.user.username %></li>
-    <!-- T_T under the assumption that a category belongs to a product -->
+    <li>Price: $ <%= '%.2f' % @product.price %></li>
+    <% if @product.description != nil %>
+      <li>Description: <%= @product.description %></li>
+    <% end %>
+
     <li>
-      Category: <% @product.categories.each do |category|%>
+      Categories: <% @product.categories.each do |category|%>
       <%= link_to category.name, category_products_path(category.id) %><br>
       <% end %>
     </li>
-    <li>Description: <%= @product.description %></l1>
+    <li>Sold by: <%= link_to @product.user.username, user_path(@product.user.id) %></li>
+
+    <% if @product.stock == 0 %>
+      <li>This fluff is out of stock!</li>
+    <% else %>
+      <li>Fluff left: <%= @product.stock %></li>
+    <% end %>
   </ul>
 </section>
 
-<section>
+<% if @product.stock > 0 %>
+  <section class = "cart_section large-12 medium-12 small-12 columns">
+    <% if !(@current_user.nil?) && (@current_user.products.include? @product) %>
+      <%= link_to 'Edit your product', edit_product_path(@product.id), class: :button %>
+    <% else %>
+    <div class="large-1 medium-2 columns">
+      <%= form_tag({controller: "orders", action: "add_product"}, method: "post") do %>
+        <%= hidden_field_tag :product_id, @product.id %>
+        <%= hidden_field_tag :order_id, @cart.id %>
+        <%= label_tag "quantity" %>
+        <%= select_tag :quantity, options_for_select( (1..@product.stock).map  ) %>
+        <%= submit_tag("Add to Cart") %>
+      <% end %>
+    </div>
+    <% end %>
+  </section>
+<% end %>
+
+<section class = "review-section">
   <h4>Reviews</h4>
 
+  <table>
+    <thead>
+      <tr>
+        <th>Rating</th>
+        <th>Comment</th>
+        <th>Last Update</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @product.reviews.each do |review| %>
+      <tr>
+        <td><%= review.rating %></td>
+        <td><%= review.comment %></td>
+        <td><%= review.updated_at %></td>
+      </tr>
+      <%end%>
+    </tbody>
+  </table>
+
   <article>
-    <% if @product.reviews == 0 %>
-    <p>Unrated fluff. <%= link_to "Be the first to review!", new_review_path %></p>
+    <!-- owner cannot review own product -->
+    <% if !(@current_user.nil?) && (@current_user.products.include? @product) %>
+      <p>You can't review your own fluff.</p>
+    <!-- for products with no reviews -->
     <% else %>
-
-<table>
-  <tr>
-    <th>Rating</th>
-    <th>Comment</th>
-    <th>Last Update</th>
-  </tr>
-  <% @product.reviews.each do |review| %>
-  <tr>
-    <td><%= review.rating %></td>
-    <td><%= review.comment %></td>
-    <td><%= review.updated_at %></td>
-
-  </tr>
-  <%end%>
-</table>
-<%end%>
+      <% if @product.reviews.empty? %>
+        <p>Unrated fluff. <%= link_to "Be the first to review this fluff!", new_product_review_path(@product) %></p>
+      <% else %>
+        <%= link_to "Review this Fluff", new_product_review_path(@product) %>
+      <%end%>
+    <%end%>
+  </article>
 </section>
-
-
-<section>
-  <% if @product.stock == 0  %>
-  <p>Out of Stock</p>
-  <% else %>
-
-
-  <% if !(@current_user.nil?) && (@current_user.products.include? @product) %>
-        <%= link_to 'Edit this product', edit_product_path(@product.id)%>
-          <%else%>
-          <%= form_tag({controller: "orders", action: "add_product"}, method: "post") do %>
-              <%= hidden_field_tag :product_id, @product.id %>
-              <%= hidden_field_tag :order_id, @cart.id %>
-              <%= label_tag "quantity" %>
-              <%= select_tag :quantity, options_for_select( (1..@product.stock).map  ) %>
-              <%= submit_tag("Add to Cart") %>
-          <% end %>
-          <%end%>
-  <%end %>
-</section>
-<%= link_to "Review this fluff.", new_product_review_path(@product) %>
