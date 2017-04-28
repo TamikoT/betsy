@@ -417,13 +417,30 @@ describe Order do
   end
 
   describe "associations test" do
-    # it "#product_orders - an order can have multiple product orders" do
-    #   # skip
-    #   assert_equal 2, orders(:one).product_orders.size
-    # end
-    #
-    # it "#user_orders" do
-    # end
+    it "Order can have many product orders" do
+      assert_operator 1, :<, orders(:one).product_orders.count
+    end
+
+    it "Order can have many products (through product orders)" do
+      # FIXME
+      assert_operator 1, :<, orders(:one).products.count
+    end
+
+    it "Order can have many user orders" do
+      # FIXME
+      assert_operator 1, :<, orders(:one).user_orders.count
+    end
+
+    it "Order can have many products (through user orders)" do
+      # FIXME
+      assert_operator 1, :<, orders(:one).users.count
+    end
+  end
+
+  describe "Cart_total" do
+    it "Returning sum can not equal orginal sum" do
+      
+    end
   end
 end
 
