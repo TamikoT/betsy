@@ -1,7 +1,6 @@
-<h3>Product Details</h3>
+<h1 class='productname'><%= @product.name %></h1>
 
-<h4><%= @product.name %></h4>
-
+<section class='errormsgs'>
 <% if @product.errors.any? %>
 <ul>
   <% @product.errors.each do |attribute, message| %>
@@ -9,12 +8,10 @@
   <% end %>
 </ul>
 <% end %>
+</section>
 
-<div class="product-photo">
-  <%= image_tag url="#{@product.photo}" %>
-</div>
-
-<section>
+<section class="product-details">
+  <h3>Product Details</h3>
   <ul>
     <li>Price: $ <%= '%.2f' % @product.price %></li>
     <% if @product.description != nil %>
@@ -38,10 +35,15 @@
   </ul>
 </section>
 
-<% if @product.stock > 0 %>
+
   <section class = "cart_section large-12 medium-12 small-12 columns">
+    <% if @product.stock > 0 %>
+    <div class="product-photo">
+      <%= image_tag url="#{@product.photo}" %>
+    </div>
+
     <% if !(@current_user.nil?) && (@current_user.products.include? @product) %>
-      <%= link_to 'Edit your product', edit_product_path(@product.id), class: :button %>
+      <%= link_to 'Edit your product', edit_product_path(@product.id), class: 'edit-product button' %>
     <% else %>
     <div class="large-1 medium-2 columns">
       <%= form_tag({controller: "orders", action: "add_product"}, method: "post") do %>
@@ -55,6 +57,7 @@
     <% end %>
   </section>
 <% end %>
+
 
 <section class = "review-section">
   <h4>Reviews</h4>

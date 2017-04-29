@@ -1,3 +1,4 @@
+<section class='errormsgs'>
 <% if @user.errors.any? %>
 <ul>
   <% @user.errors.each do |attribute, message| %>
@@ -5,6 +6,7 @@
   <% end %>
 </ul>
 <% end %>
+</section>
 
 <%= form_for @user do |f| %>
 

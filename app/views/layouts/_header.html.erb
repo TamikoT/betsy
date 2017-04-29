@@ -20,6 +20,9 @@
       <%else%>
       Not Fluffed in
       <%= link_to "Login", login_path%>
+      <span>
+        <%= link_to "#{@cart_quantity}", order_path(session[:order_id]), :class => 'badge cart_quantity' %><%= link_to "Shopping Cart", order_path(session[:order_id]) %>
+      </span>
       <%end%>
     </section>
 

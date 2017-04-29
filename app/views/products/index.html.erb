@@ -27,12 +27,13 @@
   <% @products.each do |product|%>
   <div class="card">
     <% if product.photo.nil? %>
-    <%= image_tag url="https://img.memesuper.com/e1974b11dafe9e5c6540ac35912dfd91_funny-memes-no-time-to-explain-funny-pictures-with-no-memes_620-452.jpeg" , alt: "No Product Image" %>
+    <%= link_to image_tag(url="https://img.memesuper.com/e1974b11dafe9e5c6540ac35912dfd91_funny-memes-no-time-to-explain-funny-pictures-with-no-memes_620-452.jpeg" , alt: "No Product Image"), product_path(product) %>
     <% else %>
-    <%= image_tag url="#{product.photo}" , alt: "Product Photo" %>
+    <%= link_to image_tag(url="#{product.photo}" , alt: "Product Photo"), product_path(product) %>
     <% end %>
     <div class="card-section">
-      <h4> <%= link_to ("#{product.name}" + " $#{'%.2f' % product.price}"), product_path(product) %></h4>
+      <h4> <%= link_to "#{product.name}", product_path(product) %></h4>
+      <h2 class='productprice'> Price: <%= " $#{'%.2f' % product.price}"%> </h2>
     </div>
   </div>
   <% end %>
