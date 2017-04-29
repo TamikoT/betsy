@@ -24,13 +24,6 @@ describe ProductsController do
     end
   end
 
-  # describe "new" do
-  #   it "makes new product" do
-  #     skip
-  #   end
-  # end
-
-
   describe "create" do
     it "adds product to database" do
       product_data =
@@ -43,7 +36,6 @@ describe ProductsController do
       }
 
       post products_path, params: product_data
-      #Can't use @current_user because we are using a dummy login???
       must_redirect_to user_path(id: session[:user_id])
     end
 
