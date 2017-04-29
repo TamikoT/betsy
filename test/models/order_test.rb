@@ -422,30 +422,23 @@ describe Order do
     end
 
     it "Order can have many products (through product orders)" do
-      # FIXME
       assert_operator 1, :<, orders(:one).products.count
     end
 
     it "Order can have many user orders" do
-      # FIXME
       assert_operator 1, :<, orders(:one).user_orders.count
     end
 
     it "Order can have many products (through user orders)" do
-      # FIXME
       assert_operator 1, :<, orders(:one).users.count
     end
   end
 
-  describe "Cart_total" do
+  describe "cart_total" do
     it "Returning sum can not equal orginal sum" do
-      
+      order = orders(:two)
+      sum = order.cart_total
+      sum.must_be :<, 0.0
     end
   end
 end
-
-
-# describe "associations test" do
-#   it "#product_categories - recognizes the correct number" do
-#     assert_equal 2, categories(:one).product_categories.size
-#   end
