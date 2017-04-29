@@ -23,7 +23,7 @@ class ProductsController < ApplicationController
             redirect_to user_path(@current_user)
         else
             flash[:notice] = 'Error creating product'
-            render 'new'
+            render :new
         end
     end
 
@@ -72,6 +72,7 @@ class ProductsController < ApplicationController
 
     def show
         @product = Product.find_by(id: params[:id])
+        render :text => 'Not Found', :status => '404' if @product == nil
     end
 
     private
