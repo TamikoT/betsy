@@ -10,4 +10,16 @@ two:
   category_id: 1
   product_id: 1
   category: one
-  product: two
+  product: one
+
+# three:
+#   category_id: 2
+#   product_id: 1
+#   category: one
+#   product: one
+
+#   four:
+#     category_id: 2
+#     product_id: 1
+#     category: one
+#     product: two

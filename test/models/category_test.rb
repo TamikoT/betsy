@@ -26,7 +26,12 @@ describe Category do
 
   describe "association test" do
     it "#product_categories - a category can have multiple product categories" do
-      assert_equal 2, categories(:one).product_categories.size
+      assert_operator 1, :<, categories(:one).product_categories.size
+    end
+
+    it "#product - a category can have multiple products (through product_categories)" do
+      # TODO: Fix this.
+      assert_operator 1, :<, categories(:one).products.size
     end
   end
 end
