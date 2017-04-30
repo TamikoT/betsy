@@ -5,6 +5,7 @@ describe ProductsController do
   before do
     login(users(:grace))
   end
+
   describe "index" do
 
     it "responds with no product" do
@@ -37,11 +38,13 @@ describe ProductsController do
 
       post products_path, params: product_data
       must_redirect_to user_path(id: session[:user_id])
+      assert_equal flash[:notice], 'Product was successfully created.'
     end
 
     it "refreshed the form if the info sucks" do
-      skip
+      # skip
       #TODO: Something wrong with actual redirect
+      #FIXME
 
       product_data =
       { product:
@@ -53,7 +56,9 @@ describe ProductsController do
       }
 
       post products_path, params: product_data
-      must_respond_with(:new)
+      # must_respond_with :success
+      must_respond_with :new
+      assert_equal flash[:notice], 'Error creating product'
     end
   end
 

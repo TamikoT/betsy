@@ -35,7 +35,8 @@ describe Review do
 
   describe "association test" do
     it "#product" do
-      assert_equal "MyString", reviews(:one).product.name
+      # assert_equal "MyString", reviews(:one).product.name
+      assert_equal 1, reviews(:one).product.count
     end
   end
 end

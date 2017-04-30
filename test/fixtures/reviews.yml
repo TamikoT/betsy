@@ -4,11 +4,13 @@ one:
   rating: 1.5
   comment: MyString
   product: one
+  product_id: 1
 
 two:
   rating: 1.5
   comment: MyString
   product: two
+  product_id: 2
 
 three:
   rating: 1.5

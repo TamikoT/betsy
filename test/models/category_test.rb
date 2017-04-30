@@ -16,7 +16,6 @@ describe Category do
     end
 
     it "new category can be created with a unique name" do
-      # TODO: Add fixture
       category[:name] = "unique"
       category.save
 
