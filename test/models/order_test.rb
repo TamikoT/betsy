@@ -435,10 +435,18 @@ describe Order do
   end
 
   describe "cart_total" do
-    it "Returning sum can not equal orginal sum" do
-      order = orders(:two)
+    it "Returning sum can not equal 0" do
+      order = orders(:one)
       sum = order.cart_total
-      sum.must_be :<, 0.0
+      sum.must_be :>, 0.0
+    end
+  end
+
+  describe "cart_quantity" do
+    it "Returning number of items can not equal 0" do
+      order = orders(:one)
+      items_count = order.cart_quantity
+      items_count.must_be :>, 0.0
     end
   end
 end

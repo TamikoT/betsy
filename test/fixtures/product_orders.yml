@@ -3,16 +3,19 @@
 one:
   product_id: 1
   order_id: 1
+  quantity: 2
 
 two:
   product_id: 1
   order_id: 1
   quantity: 2
 
-three:
-    product_id: 2
-    order_id: 1
-
+# three:
+#     product_id: 2
+#     order_id: 1
+#     quantity: 2
+#
 # four:
 #     product_id: 2
 #     order_id: 1
+#     quantity: 2
