@@ -37,7 +37,7 @@ describe ProductsController do
       }
 
       post products_path, params: product_data
-      must_redirect_to user_path(id: session[:user_id])
+      must_redirect_to user_path(id: session[:user_id]) #Could use (users(:grace).id)
       assert_equal flash[:notice], 'Product was successfully created.'
     end
 

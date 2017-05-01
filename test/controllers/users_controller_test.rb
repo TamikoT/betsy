@@ -36,9 +36,18 @@ describe UsersController do
 
   describe "create" do
     it "adds user to database" do
-      skip
-      user_data = { user: { name: "Test Name", email: "test@aol.com" } }
+      # skip
+      start_count = User.count
+      user_data =
+      {
+        user:{
+          username: "Test Name",
+          email: "test@aol.com"
+        }
+      }
+
       post users_path, params: user_data
+      User.count.must_equal start_count + 1
       # T_T not necessarily where we will redirect to
       must_redirect_to users_path
     end
@@ -57,6 +66,7 @@ describe UsersController do
     it "responds with an existing user" do
       # skip
       get user_path(User.first)
+
       must_respond_with :success
     end
 
